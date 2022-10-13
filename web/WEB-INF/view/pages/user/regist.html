@@ -5,10 +5,14 @@
     <title>会员注册页面</title>
     <link type="text/css" rel="stylesheet" th:href="@{static/css/style.css}" />
     <link rel="stylesheet" th:href="@{static/css/register.css}" />
+
     <style type="text/css">
       .login_form {
         height: 420px;
         margin-top: 25px;
+      }
+      .inp{
+        margin-left: 0px;
       }
     </style>
   </head>
@@ -26,28 +30,28 @@
           <div class="form-item">
             <div>
               <label>用户名称:</label>
-              <input type="text" placeholder="请输入用户名" name="name"/>
+              <input class="inp" type="text" placeholder="请输入用户名" name="name"/>
             </div>
             <span class="errMess">用户名应为6~16位数组和字母组成</span>
           </div>
           <div class="form-item">
             <div>
               <label>用户密码:</label>
-              <input type="password" placeholder="请输入密码" name="password"/>
+              <input class="inp" type="password" placeholder="请输入密码" name="password"/>
             </div>
             <span class="errMess">密码的长度至少为8位</span>
           </div>
           <div class="form-item">
             <div>
               <label>确认密码:</label>
-              <input type="password" placeholder="请输入确认密码"/>
+              <input class="inp" type="password" placeholder="请输入确认密码"/>
             </div>
             <span class="errMess">密码两次输入不一致</span>
           </div>
           <div class="form-item">
             <div>
               <label>用户邮箱:</label>
-              <input type="text" placeholder="请输入邮箱" name="email"/>
+              <input class="inp" type="text" placeholder="请输入邮箱" name="email"/>
             </div>
             <span class="errMess">请输入正确的邮箱格式</span>
           </div>
@@ -55,13 +59,13 @@
             <div>
               <label>验证码:</label>
               <div class="verify">
-                <input type="text" placeholder="" />
+                <input class="inp" type="text" placeholder="" />
                 <img th:src="@{static/img/code.bmp}" alt="" />
               </div>
             </div>
             <span class="errMess">请输入正确的验证码</span>
           </div>
-          <button class="btn">注册</button>
+          <input type="submit" value="注册" class="btn">
         </form>
       </div>
     </div>
@@ -70,5 +74,6 @@
         Deer.Copyright &copy;2022
       </span>
     </div>
+    <script th:src="@{static/script/checkUser.js}"></script>
   </body>
 </html>
