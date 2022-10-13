@@ -96,6 +96,10 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         // 获取邮箱
         String email = req.getParameter("email");
         User user = new User(name, encryptPassword, email);
+        // 验证码
+
+
+
 
         HttpSession session = req.getSession();
         session.setAttribute("username",name);

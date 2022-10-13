@@ -18,7 +18,7 @@
   </head>
   <body>
     <div id="login_header">
-      <a href="../../index.html">
+      <a th:href="@{index}">
         <img class="logo_img" alt="" th:src="@{static/img/logo.gif}" />
       </a>
     </div>
@@ -39,7 +39,7 @@
               <label>用户密码:</label>
               <input class="inp" type="password" placeholder="请输入密码" name="password"/>
             </div>
-            <span class="errMess">密码的长度至少为8位</span>
+            <span class="errMess">密码的长度至少为8位,必须包含一个数字和字母</span>
           </div>
           <div class="form-item">
             <div>
@@ -59,12 +59,16 @@
             <div>
               <label>验证码:</label>
               <div class="verify">
-                <input class="inp" type="text" placeholder="" />
-                <img th:src="@{static/img/code.bmp}" alt="" />
+                <input class="inp" style="width: 125px;margin-right: 37px;" type="text" placeholder="" />
+                <div class="img" style="font: 12px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;margin-right: 15px; width: 85px;"></div>
               </div>
             </div>
-            <span class="errMess">请输入正确的验证码</span>
+            <div style="display: flex">
+              <span class="errMess">请输入正确的验证码</span>
+              <a href="#" style="font-size: 12px;text-decoration: none;color: #39987c" class="button">看不清,换一张</a>
+            </div>
           </div>
+
           <input type="submit" value="注册" class="btn">
         </form>
       </div>
