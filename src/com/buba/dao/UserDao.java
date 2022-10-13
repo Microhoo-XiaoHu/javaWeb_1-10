@@ -12,5 +12,5 @@ public interface UserDao {
     int addUserDao(User user);
 
     // 查询,通过用户名和密码在数据库查询是否存在该用户
-    int findUserByNameAndPassword(String userName, Integer userPassword);
+    int findUserByNameAndPassword(String userName, String userPassword);
 }

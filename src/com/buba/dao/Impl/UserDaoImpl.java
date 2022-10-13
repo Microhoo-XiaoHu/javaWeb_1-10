@@ -3,6 +3,7 @@ package com.buba.dao.Impl;
 import com.buba.dao.UserDao;
 import com.buba.entity.User;
 import com.buba.utils.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -15,11 +16,14 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int addUserDao(User user) {
         String sql = "insert into t_user(user_name,user_password,email) values(?,?,?)";
-        return 0;
+        int i = jdbcTemplate.update(sql, user.getUserName(), user.getUserPassword(), user.getEmail());
+        return i;
     }
 
     @Override
-    public int findUserByNameAndPassword(String userName, Integer userPassword) {
-        return 0;
+    public int findUserByNameAndPassword(String userName, String userPassword) {
+        String sql = "select count(*) from t_user where user_name = ? and user_password = ?";
+        Integer i = jdbcTemplate.queryForObject(sql, Integer.class, userName, userPassword);
+        return i;
     }
 }

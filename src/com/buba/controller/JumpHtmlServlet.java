@@ -1,8 +1,16 @@
 package com.buba.controller;
 
+import com.buba.dao.Impl.UserDaoImpl;
+import com.buba.dao.UserDao;
+import com.buba.entity.User;
+import com.buba.service.Impl.UserServiceImpl;
+import com.buba.service.UserService;
+import com.buba.utils.MD5Util;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -11,7 +19,7 @@ import java.io.IOException;
  * Time:11:30
  */
 public class JumpHtmlServlet extends ViewBaseServlet {
-
+    private UserService userService = new UserServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 请求转发跳转到 /WEB-INF/view/ 路径.html
@@ -23,7 +31,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         }
         // 登录成功
         if(req.getParameter("jump").equals("login_success")){
-            processTemplate("/pages/user/login_success",req,resp);
+            this.findUserByNameAndPassword(req,resp);
         }
         // 注册
         if(req.getParameter("jump").equals("regist")){
@@ -31,6 +39,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         }
         // 注册成功
         if(req.getParameter("jump").equals("regist_success")){
+            this.addUserDao(req,resp);
             processTemplate("/pages/user/regist_success",req,resp);
         }
         // 购物车
@@ -53,5 +62,37 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         if(req.getParameter("jump").equals("order")){
             processTemplate("/pages/order/order",req,resp);
         }
+    }
+    // 登录
+    private void findUserByNameAndPassword(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        // 加密
+        String encryptPassword = MD5Util.encrypt(password);
+        int i = userService.findUserByNameAndPassword(username, encryptPassword);
+        if(i == 1){ // 登陆成功
+            HttpSession session = req.getSession();
+            session.setAttribute("username",username);
+            super.processTemplate("/pages/user/login_success",req,resp);
+        }else{ // 登录失败
+            super.processTemplate("/pages/user/login",req,resp);
+        }
+    }
+    // 注册
+    private void addUserDao(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+        // 获取用户名
+        String name = req.getParameter("name");
+        // 获取密码
+        String password = req.getParameter("password");
+        // 加密
+        String encryptPassword = MD5Util.encrypt(password);
+        // 获取邮箱
+        String email = req.getParameter("email");
+        User user = new User(name, encryptPassword, email);
+
+        HttpSession session = req.getSession();
+        session.setAttribute("username",name);
+
+        userService.addUserDao(user);
     }
 }

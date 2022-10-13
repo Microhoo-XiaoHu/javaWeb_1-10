@@ -21,7 +21,7 @@
 					<img class="logo_img" alt="" th:src="@{static/img/logo.gif}" />
 				</a>
 				<div>
-					<span>欢迎<span class="um_span">会员</span>光临Deer书城</span>
+					<span>欢迎<span class="um_span" th:text="${session.username}">会员</span>光临Deer书城</span>
 					<a th:href="@{jumpHtml(jump='order')}">我的订单</a>
 					<a th:href="@{index}">注销</a>&nbsp;&nbsp;
 					<a th:href="@{index}">返回</a>
