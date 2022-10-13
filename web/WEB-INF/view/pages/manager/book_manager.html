@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{static/css/minireset.css}" />
+    <link rel="stylesheet" th:href="@{static/css/common.css}" />
+    <link rel="stylesheet" th:href="@{static/css/cart.css}" />
+    <link rel="stylesheet" th:href="@{static/css/bookManger.css}" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="w">
+        <div class="header-left">
+          <a href="../../index.html">
+            <img th:src="@{static/img/logo.gif}" alt=""
+          /></a>
+          <h1>图书管理系统</h1>
+        </div>
+        <div class="header-right">
+          <a href="#" class="order">图书管理</a>
+          <a th:href="@{jumpHtml(jump='order_manager')}" class="destory">订单管理</a>
+          <a th:href="@{index}" class="gohome">返回商城</a>
+        </div>
+      </div>
+    </div>
+    <div class="list">
+      <div class="w">
+        <div class="add">
+          <a th:href="@{jumpHtml(jump='book_edit')}">添加图书</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>图片</th>
+              <th>商品名称</th>
+              <th>价格</th>
+              <th>作者</th>
+              <th>销量</th>
+              <th>库存</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img src="../../static/uploads/huozhe.jpg" alt="" />
+              </td>
+              <td>活着</td>
+              <td>
+                100.00
+              </td>
+              <td>余华</td>
+              <td>200</td>
+              <td>400</td>
+              <td>
+                <a href="book_edit.html">修改</a><a href="" class="del">删除</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="../../static/uploads/huozhe.jpg" alt="" />
+              </td>
+              <td>活着</td>
+              <td>
+                100.00
+              </td>
+              <td>余华</td>
+              <td>200</td>
+              <td>400</td>
+              <td>
+                <a href="book_edit.html">修改</a><a href="" class="del">删除</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="footer">
+          <div class="footer-right">
+            <div>首页</div>
+            <div>上一页</div>
+            <ul>
+              <li class="active">1</li>
+              <li>2</li>
+              <li>3</li>
+            </ul>
+            <div>下一页</div>
+            <div>末页</div>
+            <span>共10页</span>
+            <span>30条记录</span>
+            <span>到第</span>
+            <input type="text" />
+            <span>页</span>
+            <button>确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="w">
+        <div class="top">
+          <ul>
+            <li>
+              <a href="">
+                <img th:src="@{static/img/bottom1.png}" alt="" />
+                <span>售后服务</span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <img th:src="@{tatic/img/bottom.png}s" alt="" />
+                <span>物流服务</span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <img th:src="@{static/img/bottom2.png}" alt="" />
+                <span>联系电话</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="content">
+          
+        </div>
+      </div>
+      <div class="down">
+        Deer.Copyright ©2022
+      </div>
+    </div>
+  </body>
+</html>

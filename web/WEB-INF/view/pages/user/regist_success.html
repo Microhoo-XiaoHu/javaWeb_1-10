@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>会员注册页面</title>
+<link type="text/css" rel="stylesheet" th:href="@{static/css/style.css}" >
+<style type="text/css">
+	h1 {
+		text-align: center;
+		margin-top: 200px;
+	}
+	
+	h1 a {
+		color:red;
+	}
+</style>
+</head>
+<body>
+		<div id="header">
+				<a th:href="@{index}">
+					<img class="logo_img" alt="" th:src="@{static/img/logo.gif}" />
+				</a>
+				<span class="wel_word"></span>
+				<div>
+					<span>欢迎<span class="um_span">会员</span>光临Deer书城</span>
+					<a th:href="@{jumpHtml(jump='order')}">我的订单</a>
+					<a th:href="@{index}">注销</a>&nbsp;&nbsp;
+					<a th:href="@{index}">返回</a>
+				</div>
+		</div>
+		
+		<div id="main">
+		
+			<h1>注册成功! <a th:href="@{index}">转到主页</a></h1>
+	
+		</div>
+		
+		<div id="bottom">
+			<span>
+				Deer.Copyright &copy;2022
+			</span>
+		</div>
+</body>
+</html>
