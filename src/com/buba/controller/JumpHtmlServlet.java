@@ -42,6 +42,13 @@ public class JumpHtmlServlet extends ViewBaseServlet {
             this.addUserDao(req,resp);
             processTemplate("/pages/user/regist_success",req,resp);
         }
+        // 注销
+        if(req.getParameter("jump").equals("logoff")){
+            HttpSession session = req.getSession();
+            session.setAttribute("username",null);
+
+            processTemplate("index",req,resp);
+        }
         // 购物车
         if(req.getParameter("jump").equals("cart")){
             processTemplate("/pages/cart/cart",req,resp);

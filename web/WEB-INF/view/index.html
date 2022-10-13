@@ -19,7 +19,8 @@
             <i>北京</i>
             <i class="iconfont icon-ai-arrow-down"></i>
           </div>
-          <div class="topbar-right">
+          <!--  还没有登录  -->
+          <div th:if="${session.username == null}" class="topbar-right">
             <a th:href="@{jumpHtml(jump='login')}" class="login">登录</a>
             <a th:href="@{jumpHtml(jump='regist')}" class="register">注册</a>
             <a th:href="@{jumpHtml(jump='cart')}" class="cart iconfont icon-gouwuche">
@@ -28,19 +29,19 @@
             </a>
             <a th:href="@{jumpHtml(jump='book_manager')}" class="admin">后台管理</a>
           </div>
-<!--          登录后风格-->
-<!--          <div class="topbar-right">-->
-<!--            <span>欢迎你<b>张总</b></span>-->
-<!--            <a href="#" class="register">注销</a>-->
-<!--            <a-->
-<!--                    href="pages/cart/cart.jsp"-->
-<!--                    class="cart iconfont icon-gouwuche-->
-<!--			">-->
-<!--              购物车-->
-<!--              <div class="cart-num">3</div>-->
-<!--            </a>-->
-<!--            <a href="./pages/manager/book_manager.html" class="admin">后台管理</a>-->
-<!--          </div>-->
+          <!--  登录成功  -->
+          <div th:unless="${session.username == null}" class="topbar-right">
+            <span>欢迎你<b th:text="${session.username}">张总</b></span>
+            <a th:href="@{jumpHtml(jump='logoff')} " class="register">注销</a>
+            <a
+                    href="pages/cart/cart.jsp"
+                    class="cart iconfont icon-gouwuche
+			">
+              购物车
+              <div class="cart-num">3</div>
+            </a>
+            <a href="./pages/manager/book_manager.html" class="admin">后台管理</a>
+          </div>
         </div>
       </div>
       <div class="header w">
