@@ -62,7 +62,6 @@ btn.onclick = function(e){
         errMess[0].style.visibility = "visible"
         // 阻止注册默认行为
         e.preventDefault()
-        console.log("用户名格式错误")
     }else{
         // 用户名输入格式正确,判断用户名是否存在
         errMess[0].style.visibility = "hidden"
@@ -70,7 +69,6 @@ btn.onclick = function(e){
         // 判断用户名是否重复
         axios.post(url).then(resp => {
             if(resp.data > 0){
-            // loginError.style.visibility = "visible"
             errMess[0].innerText = "用户名已存在"
             errMess[0].style.visibility = "visible"
             e.preventDefault()
@@ -86,7 +84,6 @@ btn.onclick = function(e){
     if(!rulePass.test(inp[1].value)){
         errMess[1].style.visibility = "visible"
         e.preventDefault()
-        console.log("密码格式错误")
     }else{
         errMess[1].style.visibility = "hidden"
     }
@@ -94,23 +91,19 @@ btn.onclick = function(e){
     if(inp[1].value != inp[2].value){
         errMess[2].style.visibility = "visible"
         e.preventDefault()
-        console.log("密码不一致!")
     }else{
         errMess[2].style.visibility = "hidden"
     }
 
     if(!email.test(inp[3].value)){
         errMess[3].style.visibility = "visible"
-        console.log(inp[3].value)
         e.preventDefault()
-        console.log("邮箱不正确!")
     }else{
         errMess[3].style.visibility = "hidden"
     }
 
     if(inp[4].value.toLowerCase() != str.toLowerCase()){ // 输入的验证码转小写进行比较
         errMess[4].style.visibility = "visible"
-        console.log("验证码错误!!")
         str = run();
         e.preventDefault()
     }else{
