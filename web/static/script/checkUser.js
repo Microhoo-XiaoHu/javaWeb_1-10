@@ -55,13 +55,17 @@ btn.onclick = function(e){
     var reg = /^[a-zA-Z0-9_@.-]{6,16}$/
     var rulePass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
     var email = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+    // 如果输入内容不满足条件则
     if(!reg.test(inp[0].value)){
+        // 输入不对,显示提示
         errMess[0].style.visibility = "visible"
+        // 阻止注册默认行为
         e.preventDefault()
         console.log("用户名格式错误")
     }else{
         errMess[0].style.visibility = "hidden"
     }
+
     if(!rulePass.test(inp[1].value)){
         errMess[1].style.visibility = "visible"
         e.preventDefault()
@@ -69,6 +73,7 @@ btn.onclick = function(e){
     }else{
         errMess[1].style.visibility = "hidden"
     }
+
     if(inp[1].value != inp[2].value){
         errMess[2].style.visibility = "visible"
         e.preventDefault()

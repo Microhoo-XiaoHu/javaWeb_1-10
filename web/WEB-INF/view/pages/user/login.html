@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>网上书店登录页面</title>
-    <link type="text/css" rel="stylesheet" th:href="@{static/css/style.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{static/css/style.css}"/>
   </head>
   <body>
     <div id="login_header">
@@ -28,7 +28,7 @@
               <span class="errorMsg">请输入用户名和密码</span>
             </div>
             <div class="form">
-              <form th:action="@{jumpHtml(jump='login_success')}" method="post">
+<!--              <form th:action="@{jumpHtml(jump='login_success')}" method="post">-->
                 <label>用户名称：</label>
                 <input
                   class="itxt"
@@ -51,10 +51,10 @@
                   name="password"
                   id="password"
                 />
-                <br />
-                <br />
+                  <input class="hid_inp" type="hidden" th:value="${session.i}">
+                <div class="loginError" style="color: red; visibility: hidden">账号或者密码输入错误</div>
                 <input type="submit" value="登录" id="sub_btn" />
-              </form>
+<!--              </form>-->
               <div class="tit">
                 <a th:href="@{jumpHtml(jump='regist')}">立即注册</a>
               </div>
@@ -68,5 +68,7 @@
         Deer.Copyright &copy;2022
       </span>
     </div>
+    <script th:src="@{static/script/axios.js}"></script>
+    <script th:src="@{static/script/login.js}"></script>
   </body>
 </html>

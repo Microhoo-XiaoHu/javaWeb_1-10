@@ -22,6 +22,9 @@ public class JumpHtmlServlet extends ViewBaseServlet {
     private UserService userService = new UserServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json;charset=utf-8");
+        resp.setCharacterEncoding("UTF-8");
+
         // 请求转发跳转到 /WEB-INF/view/ 路径.html
 
         // 判断跳转路径
@@ -40,7 +43,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         // 注册成功
         if(req.getParameter("jump").equals("regist_success")){
             this.addUserDao(req,resp);
-            processTemplate("/pages/user/regist_success",req,resp);
+            processTemplate("/pages/user/login",req,resp);
         }
         // 注销
         if(req.getParameter("jump").equals("logoff")){
@@ -74,15 +77,18 @@ public class JumpHtmlServlet extends ViewBaseServlet {
     private void findUserByNameAndPassword(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        System.out.println(username);
+        System.out.println(password);
         // 加密
         String encryptPassword = MD5Util.encrypt(password);
         int i = userService.findUserByNameAndPassword(username, encryptPassword);
+        System.out.println(i);
+        HttpSession session = req.getSession();
         if(i == 1){ // 登陆成功
-            HttpSession session = req.getSession();
             session.setAttribute("username",username);
-            super.processTemplate("/pages/user/login_success",req,resp);
-        }else{ // 登录失败
-            super.processTemplate("/pages/user/login",req,resp);
+            super.processTemplate("index",req,resp);
+        }else{
+            resp.getWriter().write("" + i);
         }
     }
     // 注册
@@ -96,10 +102,6 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         // 获取邮箱
         String email = req.getParameter("email");
         User user = new User(name, encryptPassword, email);
-        // 验证码
-
-
-
 
         HttpSession session = req.getSession();
         session.setAttribute("username",name);
