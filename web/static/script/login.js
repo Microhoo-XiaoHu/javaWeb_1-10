@@ -26,6 +26,6 @@ subBtn.onclick = function(){
             selectThis(name,word)
         }
     }).catch(err => {
-            console.log(err)
-        })
-    }
+        console.log(err)
+    })
+}

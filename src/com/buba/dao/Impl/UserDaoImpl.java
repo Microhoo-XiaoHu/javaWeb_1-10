@@ -26,4 +26,11 @@ public class UserDaoImpl implements UserDao {
         Integer i = jdbcTemplate.queryForObject(sql, Integer.class, userName, userPassword);
         return i;
     }
+
+    @Override
+    public int findUserByName(String userName) {
+        String sql = "select count(*) from t_user where user_name = ?";
+        Integer i = jdbcTemplate.queryForObject(sql, Integer.class, userName);
+        return i;
+    }
 }

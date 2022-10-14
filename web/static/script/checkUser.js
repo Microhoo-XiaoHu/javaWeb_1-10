@@ -55,15 +55,32 @@ btn.onclick = function(e){
     var reg = /^[a-zA-Z0-9_@.-]{6,16}$/
     var rulePass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
     var email = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-    // 如果输入内容不满足条件则
+    // 如果输入用户名格式不满足条件则
     if(!reg.test(inp[0].value)){
         // 输入不对,显示提示
+        errMess[0].innerText = "用户名应为6~16位数组和字母组成"
         errMess[0].style.visibility = "visible"
         // 阻止注册默认行为
         e.preventDefault()
         console.log("用户名格式错误")
     }else{
+        // 用户名输入格式正确,判断用户名是否存在
         errMess[0].style.visibility = "hidden"
+        var url = "/jumpHtml?jump=findUserByName&username=" + inp[0].value;
+        // 判断用户名是否重复
+        axios.post(url).then(resp => {
+            if(resp.data > 0){
+            // loginError.style.visibility = "visible"
+            errMess[0].innerText = "用户名已存在"
+            errMess[0].style.visibility = "visible"
+            e.preventDefault()
+
+            }else {
+                errMess[0].style.visibility = "hidden"
+            }
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     if(!rulePass.test(inp[1].value)){

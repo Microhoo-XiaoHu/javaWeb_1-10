@@ -13,4 +13,7 @@ public interface UserDao {
 
     // 查询,通过用户名和密码在数据库查询是否存在该用户
     int findUserByNameAndPassword(String userName, String userPassword);
+
+    // 通过用户名查询数据库是否存在
+    int findUserByName(String userName);
 }

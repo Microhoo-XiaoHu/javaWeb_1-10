@@ -45,6 +45,10 @@ public class JumpHtmlServlet extends ViewBaseServlet {
             this.addUserDao(req,resp);
             processTemplate("/pages/user/login",req,resp);
         }
+        // 注册时,判断用户名是否重复
+        if(req.getParameter("jump").equals("findUserByName")){
+            this.findUserByName(req,resp);
+        }
         // 注销
         if(req.getParameter("jump").equals("logoff")){
             HttpSession session = req.getSession();
@@ -73,6 +77,18 @@ public class JumpHtmlServlet extends ViewBaseServlet {
             processTemplate("/pages/order/order",req,resp);
         }
     }
+
+    private void findUserByName(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+        // 获取输入的用户名
+        String username = req.getParameter("username");
+        // 注册前,我先查找数据库中有没有这个用户名
+        int i = userService.findUserByName(username);
+        if(i == 1){
+            // 说明有了 我就不添加了
+            resp.getWriter().write("" + i);
+        }
+    }
+
     // 登录
     private void findUserByNameAndPassword(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
         String username = req.getParameter("username");
@@ -105,5 +121,6 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         session.setAttribute("username",name);
 
         userService.addUserDao(user);
+
     }
 }
