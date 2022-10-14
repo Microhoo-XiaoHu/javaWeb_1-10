@@ -77,8 +77,6 @@ public class JumpHtmlServlet extends ViewBaseServlet {
     private void findUserByNameAndPassword(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        System.out.println(username);
-        System.out.println(password);
         // 加密
         String encryptPassword = MD5Util.encrypt(password);
         int i = userService.findUserByNameAndPassword(username, encryptPassword);

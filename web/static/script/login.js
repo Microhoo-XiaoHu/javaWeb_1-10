@@ -15,9 +15,7 @@ function selectThis(name,password) {
     document.form1.submit();
 }
 
-console.log(subBtn)
 subBtn.onclick = function(){
-    console.log(subBtn)
     var name = username.value;
     var word = password.value;
     var url = "/jumpHtml?jump=login_success&username=" + name + "&password=" + word;
