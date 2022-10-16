@@ -58,13 +58,13 @@ btn.onclick = function(e){
     // 如果输入用户名格式不满足条件则
     if(!reg.test(inp[0].value)){
         // 输入不对,显示提示
-        errMess[0].innerText = "用户名应为6~16位数组和字母组成"
+        errMess[0].innerText = "用户名应为6~16位数字和字母组成"
         errMess[0].style.visibility = "visible"
         // 阻止注册默认行为
         e.preventDefault()
     }else{
-        // 用户名输入格式正确,判断用户名是否存在
         errMess[0].style.visibility = "hidden"
+        // 用户名输入格式正确,判断用户名是否存在
         var url = "/jumpHtml?jump=findUserByName&username=" + inp[0].value;
         // 判断用户名是否重复
         axios.post(url).then(resp => {
