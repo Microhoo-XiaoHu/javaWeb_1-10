@@ -28,56 +28,57 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         // 请求转发跳转到 /WEB-INF/view/ 路径.html
 
         // 判断跳转路径
-        // 登录
+        // 跳转到登录页面
         if(req.getParameter("jump").equals("login")){
             processTemplate("/pages/user/login",req,resp);
         }
-        // 登录成功
+        // 登录方法
         if(req.getParameter("jump").equals("login_success")){
-            this.findUserByNameAndPassword(req,resp);
+            this.login(req,resp);
         }
-        // 注册
+        // 跳转到注册页面
         if(req.getParameter("jump").equals("regist")){
             processTemplate("/pages/user/regist",req,resp);
         }
-        // 注册成功
+        // 注册方法
         if(req.getParameter("jump").equals("regist_success")){
-            this.addUserDao(req,resp);
+            this.registerUser(req,resp);
             processTemplate("/pages/user/login",req,resp);
         }
         // 注册时,判断用户名是否重复
         if(req.getParameter("jump").equals("findUserByName")){
             this.findUserByName(req,resp);
         }
-        // 注销
+        // 注销方法
         if(req.getParameter("jump").equals("logoff")){
             HttpSession session = req.getSession();
             session.setAttribute("username",null);
 
             processTemplate("index",req,resp);
         }
-        // 购物车
+        // 跳转到购物车页面
         if(req.getParameter("jump").equals("cart")){
             processTemplate("/pages/cart/cart",req,resp);
         }
-        // 图书管理
+        // 跳转到图书管理页面
         if(req.getParameter("jump").equals("book_manager")){
             processTemplate("/pages/manager/book_manager",req,resp);
         }
-        // 图书订单管理
+        // 跳转到图书订单管理页面
         if(req.getParameter("jump").equals("order_manager")){
             processTemplate("/pages/manager/order_manager",req,resp);
         }
-        // 添加图书
+        // 跳转到添加图书页面
         if(req.getParameter("jump").equals("book_edit")){
             processTemplate("/pages/manager/book_edit",req,resp);
         }
-        // 我的订单
+        // 跳转到我的订单页面
         if(req.getParameter("jump").equals("order")){
             processTemplate("/pages/order/order",req,resp);
         }
     }
 
+    //查询用户名是否存在
     private void findUserByName(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
         // 获取输入的用户名
         String username = req.getParameter("username");
@@ -90,7 +91,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
     }
 
     // 登录
-    private void findUserByNameAndPassword(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
+    private void login(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException  {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         // 加密
@@ -106,7 +107,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         }
     }
     // 注册
-    private void addUserDao(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+    private void registerUser(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
         // 获取用户名
         String name = req.getParameter("name");
         // 获取密码
@@ -120,7 +121,7 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         HttpSession session = req.getSession();
         session.setAttribute("username",name);
 
-        userService.addUserDao(user);
+        int i = userService.addUser(user);
 
     }
 }

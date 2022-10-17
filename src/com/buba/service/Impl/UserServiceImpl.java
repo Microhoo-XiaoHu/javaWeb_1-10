@@ -13,7 +13,7 @@ import com.buba.service.UserService;
 public class UserServiceImpl implements UserService {
     private UserDao userDao = new UserDaoImpl();
     @Override
-    public int addUserDao(User user) {
+    public int addUser(User user) {
         return userDao.addUserDao(user);
     }
 
