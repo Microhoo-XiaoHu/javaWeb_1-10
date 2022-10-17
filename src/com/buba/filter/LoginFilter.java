@@ -20,7 +20,6 @@ public class LoginFilter implements Filter {
         HttpServletResponse resp=(HttpServletResponse) servletResponse;
         //无论是否登录过,都要放行的资源   登录页  登录校验Controller 和一些静态资源
         String requestURI = req.getRequestURI();
-        System.out.println(requestURI);
         //放行主页和静态资源
         if(requestURI.contains("/index")|| requestURI.contains("/static/")){
             // 直接放行
@@ -29,47 +28,51 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        //放行登录界面
-        if(req.getParameter("jump").equals("login")){
-            // 直接放行
-            filterChain.doFilter(req,resp);
-            // 后续代码不再执行
-            return;
+        if(req.getParameter("user") != null){
+            //放行登录校验方法
+            if(req.getParameter("user").equals("login_success")){
+                // 直接放行
+                filterChain.doFilter(req,resp);
+                // 后续代码不再执行
+                return;
+            }
+
+            //放行注册时用户名是否存在的方法
+            if(req.getParameter("user").equals("findUserByName")){
+                // 直接放行
+                filterChain.doFilter(req,resp);
+                // 后续代码不再执行
+                return;
+            }
+
+            //放行注册方法
+            if(req.getParameter("user").equals("regist_success")){
+                // 直接放行
+                filterChain.doFilter(req,resp);
+                // 后续代码不再执行
+                return;
+            }
         }
 
-        //放行登录校验方法
-        if(req.getParameter("jump").equals("login_success")){
-            // 直接放行
-            filterChain.doFilter(req,resp);
-            // 后续代码不再执行
-            return;
+        if(req.getParameter("jump") != null){
+            //放行登录界面
+            if(req.getParameter("jump").equals("login")){
+                // 直接放行
+                filterChain.doFilter(req,resp);
+                // 后续代码不再执行
+                return;
+            }
+
+            //放行注册
+            if(req.getParameter("jump").equals("regist")){
+                // 直接放行
+                filterChain.doFilter(req,resp);
+                // 后续代码不再执行
+                return;
+            }
         }
 
-        //放行注册
-        if(req.getParameter("jump").equals("regist")){
-            // 直接放行
-            filterChain.doFilter(req,resp);
-            // 后续代码不再执行
-            return;
-        }
-
-        //放行注册时用户名是否存在的方法
-        if(req.getParameter("jump").equals("findUserByName")){
-            // 直接放行
-            filterChain.doFilter(req,resp);
-            // 后续代码不再执行
-            return;
-        }
-
-        //放行注册方法
-        if(req.getParameter("jump").equals("regist_success")){
-            // 直接放行
-            filterChain.doFilter(req,resp);
-            // 后续代码不再执行
-            return;
-        }
-
-        // 需要登录之后才能访问的资源,如果没登录,重定向到login.jsp上,提示用户进行登录
+        // 需要登录之后才能访问的资源,如果没登录,重定向到login上,提示用户进行登录
         HttpSession session = req.getSession();
         Object user = session.getAttribute("username");
         System.out.println(user);

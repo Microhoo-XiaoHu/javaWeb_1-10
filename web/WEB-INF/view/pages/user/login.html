@@ -28,7 +28,7 @@
               <span class="errorMsg">请输入用户名和密码</span>
             </div>
             <div class="form">
-<!--              <form th:action="@{jumpHtml(jump='login_success')}" method="post">-->
+<!--              <form th:action="@{UserServlet(user='login_success')}" method="post">-->
                 <label>用户名称：</label>
                 <input
                   class="itxt"
@@ -51,7 +51,6 @@
                   name="password"
                   id="password"
                 />
-                  <input class="hid_inp" type="hidden" th:value="${session.i}">
                 <div class="loginError" style="color: red; visibility: hidden">账号或者密码输入错误</div>
                 <input type="submit" value="登录" id="sub_btn" />
 <!--              </form>-->

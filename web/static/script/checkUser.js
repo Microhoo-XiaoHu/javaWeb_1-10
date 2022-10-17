@@ -65,7 +65,7 @@ btn.onclick = function(e){
     }else{
         errMess[0].style.visibility = "hidden"
         // 用户名输入格式正确,判断用户名是否存在
-        var url = "/jumpHtml?jump=findUserByName&username=" + inp[0].value;
+        var url = "/UserServlet?user=findUserByName&username=" + inp[0].value;
         // 判断用户名是否重复
         axios.post(url).then(resp => {
             if(resp.data > 0){
@@ -73,10 +73,10 @@ btn.onclick = function(e){
             errMess[0].style.visibility = "visible"
             e.preventDefault()
 
-            }else {
-                errMess[0].style.visibility = "hidden"
-            }
-        }).catch(err => {
+        }else {
+            errMess[0].style.visibility = "hidden"
+        }
+    }).catch(err => {
             console.log(err)
         })
     }

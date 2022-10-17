@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDateSource());
     @Override
-    public int addUserDao(User user) {
+    public int addUser(User user) {
         String sql = "insert into t_user(user_name,user_password,email) values(?,?,?)";
         int i = jdbcTemplate.update(sql, user.getUserName(), user.getUserPassword(), user.getEmail());
         return i;
