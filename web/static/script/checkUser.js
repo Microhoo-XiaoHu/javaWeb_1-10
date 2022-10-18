@@ -69,14 +69,14 @@ btn.onclick = function(e){
         // 判断用户名是否重复
         axios.post(url).then(resp => {
             if(resp.data > 0){
-            errMess[0].innerText = "用户名已存在"
-            errMess[0].style.visibility = "visible"
-            e.preventDefault()
+                errMess[0].innerText = "用户名已存在"
+                errMess[0].style.visibility = "visible"
+                e.preventDefault()
 
-        }else {
-            errMess[0].style.visibility = "hidden"
-        }
-    }).catch(err => {
+            }else {
+                errMess[0].style.visibility = "hidden"
+            }
+        }).catch(err => {
             console.log(err)
         })
     }

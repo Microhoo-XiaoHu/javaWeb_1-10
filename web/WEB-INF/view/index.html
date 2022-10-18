@@ -149,106 +149,25 @@
               </div>
             </div>
             <div class="list-content">
-              <div class="list-item">
-                <img src="../../static/uploads/huozhe.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
+              <!--       数据库中图书信息       -->
+              <div th:each="item : ${books}" class="list-item">
+                <img th:src="${item.imgPath}" alt="">
+                <p th:text="${item.name}">书名:活着</p>
+                <p th:text="${item.author}">作者:余华</p>
+                <p th:text="${item.price}">价格:￥66.6</p>
+                <p th:text="${item.sales}">销量:230</p>
+                <p th:text="${item.stock}">库存:1000</p>
                 <button>加入购物车</button>
               </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/huranqiri.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/Javabianchengsixiang.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/jiaofu.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/jieyouzahuodian.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/kanjian.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/pinang.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/pingfandeshijie.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/qiadaohaochudexingfu.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-              <div href="" class="list-item">
-                <img src="../../static/uploads/renyueshenhua.jpg" alt="">
-                <p>书名:活着</p>
-                <p>作者:余华</p>
-                <p>价格:￥66.6</p>
-                <p>销量:230</p>
-                <p>库存:1000</p>
-                <button>加入购物车</button>
-              </div>
-
             </div>
             <div class="list-footer">
-                <div>首页</div>
-                <div>上一页</div>
+                <input type="button" value="首页" th:onclick="page(1)" th:disabled="${session.pageNo==1}">
+                <input type="button" value="上一页" th:onclick="|page(${session.pageNo - 1})|" th:disabled="${session.pageNo==1}">
                 <ul><li class="active">1</li><li>2</li><li>3</li></ul>
-                <div>下一页</div>
-                <div>末页</div>
-                <span>共10页</span>
-                <span>30条记录</span>
+                <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount}">
+                <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount}">
+                <span th:text="'共'+${session.pageCount}+'页'">共10页</span>
+                <span th:text="${session.count}+'条记录'">30条记录</span>
                 <span>到第</span>
                 <input type="text">
                 <span>页</span>
@@ -350,11 +269,7 @@
                     </div>
                     <button>立即购买</button>
                   </a>
-             
-           
-                 
-             
-              </ul>
+
             </div>
           </div>
         </div>
@@ -394,7 +309,7 @@
      
 
     </div>
-    <script src="../../static/script/swiper.min.js"></script>
+    <script th:src="@{static/script/swiper.min.js}"></script>
     <script>
       var swiper = new Swiper('.swiper-container', {
         autoplay: true,
@@ -408,5 +323,6 @@
         }
       })
     </script>
+    <script th:src="@{static/script/index.js}"></script>
   </body>
 </html>

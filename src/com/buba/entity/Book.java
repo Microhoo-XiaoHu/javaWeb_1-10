@@ -10,7 +10,7 @@ public class Book {
     private String name;
     private Double price;
     private String author;
-    private Integer sales;
+    private Integer sales; // 销量
     private Integer stock; // 库存
     private String imgPath;
 
@@ -85,7 +85,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookDao{" +
                 "bookId=" + bookId +
                 ", name='" + name + '\'' +
                 ", price=" + price +

@@ -189,9 +189,10 @@
 .books-list .list-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .books-list .list-content .list-item {
+  margin-right: 11px;
   transition: all 0.5s;
   flex-shrink: 0;
   width: 234px;

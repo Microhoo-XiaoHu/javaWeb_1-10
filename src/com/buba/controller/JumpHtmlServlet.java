@@ -19,7 +19,6 @@ import java.io.IOException;
  * Time:11:30
  */
 public class JumpHtmlServlet extends ViewBaseServlet {
-    private UserService userService = new UserServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json;charset=utf-8");

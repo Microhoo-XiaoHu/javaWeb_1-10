@@ -4,7 +4,7 @@ var subBtn = document.querySelector("#sub_btn");
 var username = document.querySelector("#username");
 // 获取密码
 var password = document.querySelector("#password");
-//
+// 获取注销
 var loginError = document.querySelector(".loginError");
 
 function selectThis(name,password) {

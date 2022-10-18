@@ -13,7 +13,7 @@
         <param-name>view-suffix</param-name>
         <param-value>.html</param-value>
     </context-param>
-
+<!-- 首页 -->
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>com.buba.controller.IndexServlet</servlet-class>
@@ -39,6 +39,15 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
+<!--  图书  -->
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>com.buba.controller.BookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/book</url-pattern>
     </servlet-mapping>
 
 </web-app>
