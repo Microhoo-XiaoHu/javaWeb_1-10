@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,6 @@ public class IndexServlet extends ViewBaseServlet {
     }
 
     private void limitFindBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("limitFindBook进入");
         // 设置当前页,默认值为1,目的为了显示首页
         Integer pageNo = 1;
         // 获取点击按钮的函数中路径地址传的pageNo值
@@ -45,6 +45,14 @@ public class IndexServlet extends ViewBaseServlet {
         session.setAttribute("count",count);
         // 总页数
         int pageCount = (count+10-1)/10;
+
+        // for循环总页数,目的为前端li标签渲染
+        ArrayList<Object> list = new ArrayList<>();
+        for (int i = 0; i < pageCount; i++) {
+            list.add(i+1);
+        }
+        session.setAttribute("listPage",list);
+
         /*
          总记录条数      总页数
         *   1             1
@@ -59,7 +67,7 @@ public class IndexServlet extends ViewBaseServlet {
 
         // 查询全部图书(分页),展示在首页
         List<Book> books = bookService.limitFindBook(pageNo);
-        req.setAttribute("books",books);
+        session.setAttribute("books",books);
 
         super.processTemplate("index",req,resp);
     }

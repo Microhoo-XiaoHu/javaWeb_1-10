@@ -150,7 +150,7 @@
             </div>
             <div class="list-content">
               <!--       数据库中图书信息       -->
-              <div th:each="item : ${books}" class="list-item">
+              <div th:each="item : ${session.books}" class="list-item">
                 <img th:src="${item.imgPath}" alt="">
                 <p th:text="${item.name}">书名:活着</p>
                 <p th:text="${item.author}">作者:余华</p>
@@ -163,15 +163,23 @@
             <div class="list-footer">
                 <input type="button" value="首页" th:onclick="page(1)" th:disabled="${session.pageNo==1}">
                 <input type="button" value="上一页" th:onclick="|page(${session.pageNo - 1})|" th:disabled="${session.pageNo==1}">
-                <ul><li class="active">1</li><li>2</li><li>3</li></ul>
+                <ul>
+                  <li
+                      th:each="item : ${session.listPage}"
+                      th:text="${item}"
+                      th:class="${item == session.pageNo ? 'active' : ''}"
+                      th:onclick="|page(${item})|"
+                  ></li>
+                </ul>
                 <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount}">
                 <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount}">
                 <span th:text="'共'+${session.pageCount}+'页'">共10页</span>
                 <span th:text="${session.count}+'条记录'">30条记录</span>
                 <span>到第</span>
-                <input type="text">
+                <input id="toPage" type="text">
                 <span>页</span>
-                <button>确定</button>
+                <input id="pageCount" type="hidden" th:value="${session.pageCount}">
+                <button id="toPageBtn" disabled="false">确定</button>
             </div>
           </div>
         </div>

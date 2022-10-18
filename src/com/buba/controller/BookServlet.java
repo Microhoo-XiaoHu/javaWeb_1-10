@@ -61,7 +61,7 @@ public class BookServlet extends ViewBaseServlet {
                         //文件名称：
                         System.out.println(fileItem.getName());
                         //上传地址
-                        fileItem.write(new File("\\web\\static\\uploads" + fileItem.getName()));
+                        fileItem.write(new File("D:\\develop\\workspace\\javaWeb_1-10\\web\\static\\uploads" + fileItem.getName()));
                     }
                 }
             } catch (Exception e) {
