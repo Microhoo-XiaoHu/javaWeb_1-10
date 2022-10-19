@@ -1,6 +1,7 @@
 package com.buba.controller;
 
 
+import com.buba.entity.Book;
 import com.buba.service.BookService;
 import com.buba.service.Impl.BookServiceImpl;
 import org.apache.commons.fileupload.FileItem;
@@ -11,9 +12,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Author:SmallTiger
@@ -22,17 +25,55 @@ import java.util.List;
  */
 public class BookServlet extends ViewBaseServlet {
     private BookService bookService = new BookServiceImpl();
+    private IndexServlet indexServlet = new IndexServlet();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json;charset=utf-8");
         resp.setCharacterEncoding("UTF-8");
-
+        // 添加图书
         if(req.getParameter("method").equals("addBook")){
             this.addBook(req,resp);
+            processTemplate("/pages/manager/book_add",req,resp);
+        }
+        // 跳转到图书管理页面
+        if(req.getParameter("method").equals("book_manager")){
+            indexServlet.limitFindBook(req,resp);
+            HttpSession session = req.getSession();
+            session.setAttribute("minPrice",null);
+            session.setAttribute("maxPrice",null);
+            processTemplate("/pages/manager/book_manager",req,resp);
+        }
+        // 修改图书界面
+        if(req.getParameter("method").equals("editBook")){
+            processTemplate("/pages/manager/book_edit",req,resp);
+        }
+        // 修改图书方法
+        if(req.getParameter("method").equals("updateBook")){
+            this.updateBook(req,resp);
+        }
+        // 删除图书
+        if(req.getParameter("method").equals("deleteBook")){
+            this.deleteBook(req,resp);
         }
 
+    }
 
+    private void deleteBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        String pageNo = req.getParameter("pageNo");
+
+        int i = bookService.deleteBook(Integer.parseInt(id));
+        System.out.println(i);
+
+        resp.sendRedirect("book?method=book_manager&pageNo=" + pageNo);
+    }
+
+    private void updateBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+
+        processTemplate("/pages/manager/book_manager",req,resp);
     }
 
     private void addBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,34 +86,46 @@ public class BookServlet extends ViewBaseServlet {
             //解析上传的数据，得到每一个表单项FileItem
 
             try {
-                List<FileItem> list = servletFileUpload.parseRequest(req);
-                //判断，每一项，是普通类型，还是上传文件
-                for(FileItem fileItem : list){
-                    if(fileItem.isFormField()){
-                        //普通
-                        //name:
-                        fileItem.getFieldName();
-                        //value:
-                        fileItem.getString("UTF-8");
+                List<FileItem> items  = servletFileUpload.parseRequest(req);
 
-                    }else{
-                        //name:
-                        System.out.println(fileItem.getFieldName());
-                        //文件名称：
-                        System.out.println(fileItem.getName());
-                        //上传地址
-                        fileItem.write(new File("D:\\develop\\workspace\\javaWeb_1-10\\web\\static\\uploads" + fileItem.getName()));
-                    }
-                }
+                FileItem fileItem = items.get(0);
+                // 文件类型
+                // 获取文件后缀名
+                String imgtype = fileItem.getName().substring(fileItem.getName().lastIndexOf("."));
+                // 给文件重新命名防止重复
+                String imgName = UUID.randomUUID() + imgtype;
+                System.out.println();
+                String path="D:\\develop\\workspace\\javaWeb_1-10\\web\\static\\uploads\\";
+                // 将上传的文件保存到服务器
+                fileItem.write(new File(path, imgName));
+
+                Book book = new Book();
+                // 把服务器中的路径添加到数据库中
+                String sqlPath=null;
+                sqlPath = "static/uploads/" + imgName;
+                book.setImgPath(sqlPath);
+                book.setName(items.get(1).getString("UTF-8"));
+                book.setPrice(Double.valueOf(items.get(2).getString("UTF-8")));
+                book.setAuthor(items.get(3).getString("UTF-8"));
+                book.setSales(Integer.valueOf(items.get(4).getString("UTF-8")));
+                book.setStock(Integer.valueOf(items.get(5).getString("UTF-8")));
+                System.out.println(book.toString());
+                bookService.addBook(book);
+
+                // 将参数覆盖到会话域,以便修改界面使用
+                HttpSession session = req.getSession();
+                session.setAttribute("ImgPath",book.getImgPath());
+                session.setAttribute("Name",book.getName());
+                session.setAttribute("Price",book.getPrice());
+                session.setAttribute("Author",book.getAuthor());
+                session.setAttribute("Sales",book.getSales());
+                session.setAttribute("Stock",book.getStock());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-
         }
 
     }
-
 
 }

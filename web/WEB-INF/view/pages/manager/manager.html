@@ -17,7 +17,7 @@
 			<img class="logo_img" alt="" th:src="@{static/img/logo.gif}" >
 			<span class="wel_word">后台管理系统</span>
 			<div>
-				<a th:href="@{jumpHtml(jump='book_manager')}">图书管理</a>
+				<a th:href="@{book(method='book_manager')}">图书管理</a>
 				<a th:href="@{jumpHtml(jump='order_manager')}">订单管理</a>
 				<a th:href="@{index}">返回商城</a>
 			</div>

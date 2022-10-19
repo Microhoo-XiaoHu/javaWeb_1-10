@@ -17,7 +17,12 @@ public interface BookDao {
     // 修改图书
     int updateBook(Book book);
     // 查询所有图书
-    List<Book> limitFindBook(Integer pageNo);
+    List<Book> limitFindBook(Integer pageNo,Integer min,Integer max);
     // 查询图书总记录数的方法
-    int findBookCount();
+    int findBookCount(Integer min,Integer max);
+    // 查找图书的最高价
+    int maxPrice();
+    // 通过图书id查找图书
+    Book findBookById(Integer bookId);
+
 }

@@ -11,10 +11,10 @@
   margin: 0;
 }
 .login_banner .register_form {
-  padding: 30px 0;
+  padding: 0px 0;
 }
 .login_banner .register_form .form-item {
-  margin-top: 10px !important;
+  margin-top: 0 !important;
 }
 .bottom {
   margin: 0;

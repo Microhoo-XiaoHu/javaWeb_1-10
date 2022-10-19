@@ -37,15 +37,27 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> limitFindBook(Integer pageNo) {
-        String sql = "select * from t_book limit ? , 10";
-        List<Book> book = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class),(pageNo-1)*10);
+    public List<Book> limitFindBook(Integer pageNo,Integer min,Integer max) {
+        String sql = "select * from t_book where price between ? and ? limit ? , 10";
+        List<Book> book = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class),min,max,(pageNo-1)*10);
         return book;
     }
 
     @Override
-    public int findBookCount() {
-        String sql = "select count(*) from t_book";
+    public int findBookCount(Integer min,Integer max) {
+        String sql = "select count(*) from t_book where price between ? and ?";
+        Integer i = jdbcTemplate.queryForObject(sql, Integer.class,min,max);
+        return i;
+    }
+
+    @Override
+    public Book findBookById(Integer bookId) {
+        return null;
+    }
+
+    @Override
+    public int maxPrice() {
+        String sql = "select max(price) from t_book";
         Integer i = jdbcTemplate.queryForObject(sql, Integer.class);
         return i;
     }

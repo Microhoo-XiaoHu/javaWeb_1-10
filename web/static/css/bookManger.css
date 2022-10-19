@@ -4,6 +4,10 @@
 }
 .list input {
   text-align: center;
+  margin: 0px 5px 0px 5px;
+}
+#toPage{
+  width: 28px;
 }
 .list .add {
   padding: 10px 0;
@@ -72,7 +76,7 @@
   font-size: 24px;
 }
 .list .footer-right input {
-  width: 40px;
+  width: 78px;
   height: 30px;
 }
 .list .footer-right button {

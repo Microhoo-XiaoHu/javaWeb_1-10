@@ -31,12 +31,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> limitFindBook(Integer pageNo) {
-        return bookDao.limitFindBook(pageNo);
+    public List<Book> limitFindBook(Integer pageNo,Integer min,Integer max) {
+        return bookDao.limitFindBook(pageNo,min,max);
     }
 
     @Override
-    public int findBookCount() {
-        return bookDao.findBookCount();
+    public int findBookCount(Integer min,Integer max) {
+        return bookDao.findBookCount(min,max);
+    }
+
+    @Override
+    public Book findBookById(Integer bookId) {
+        return bookDao.findBookById(bookId);
+    }
+
+    @Override
+    public int maxPrice() {
+        return bookDao.maxPrice();
     }
 }

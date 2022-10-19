@@ -28,7 +28,7 @@
     <div class="list">
       <div class="w">
         <div class="add">
-          <a th:href="@{jumpHtml(jump='book_edit')}">添加图书</a>
+          <a th:href="@{jumpHtml(jump='book_add')}">添加图书</a>
         </div>
         <table>
           <thead>
@@ -43,55 +43,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr th:each="item : ${session.books}">
               <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
+                <img th:src="${item.imgPath}" alt="" />
               </td>
-              <td>活着</td>
+              <td th:text="${item.name}">活着</td>
+              <td th:text="${item.price}">100.00</td>
+              <td th:text="${item.author}">余华</td>
+              <td th:text="${item.sales}">200</td>
+              <td th:text="${item.stock}">400</td>
               <td>
-                100.00
-              </td>
-              <td>余华</td>
-              <td>200</td>
-              <td>400</td>
-              <td>
-                <a href="book_edit.html">修改</a><a href="" class="del">删除</a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
-              </td>
-              <td>活着</td>
-              <td>
-                100.00
-              </td>
-              <td>余华</td>
-              <td>200</td>
-              <td>400</td>
-              <td>
-                <a href="book_edit.html">修改</a><a href="" class="del">删除</a>
+                <a th:href="@{book(method='editBook',id=${item.bookId})}">修改</a><a th:href="@{book(method='deleteBook',id=${item.bookId},pageNo=${session.pageNo})}" class="del">删除</a>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="footer">
           <div class="footer-right">
-            <div>首页</div>
-            <div>上一页</div>
-            <ul>
-              <li class="active">1</li>
-              <li>2</li>
-              <li>3</li>
+            <input type="button" value="首页" th:onclick="page(1)" th:disabled="${session.pageNo==1}">
+            <input type="button" value="上一页" th:onclick="|page(${session.pageNo - 1})|" th:disabled="${session.pageNo==1}">
+            <ul id="pageUl">
+              <li style="display: none"
+                  th:each="item : ${session.listPage}"
+                  th:text="${item}"
+                  th:class="${item == session.pageNo ? 'active' : ''}"
+                  th:onclick="|page(${item})|"
+              ></li>
             </ul>
-            <div>下一页</div>
-            <div>末页</div>
-            <span>共10页</span>
-            <span>30条记录</span>
+            <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount}">
+            <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount}">
+            <span>共<e th:text="${session.pageCount}" class="e">xx</e>页</span>
+            <span th:text="${session.count}+'条记录'">30条记录</span>
             <span>到第</span>
-            <input type="text" />
+            <input id="toPage" type="text">
             <span>页</span>
-            <button>确定</button>
+            <input id="pageCount" type="hidden" th:value="${session.pageCount}">
+            <button id="toPageBtn" disabled="false">确定</button>
           </div>
         </div>
       </div>
@@ -108,7 +95,7 @@
             </li>
             <li>
               <a href="">
-                <img th:src="@{tatic/img/bottom.png}s" alt="" />
+                <img th:src="@{static/img/bottom.png}" alt="" />
                 <span>物流服务</span>
               </a>
             </li>
@@ -128,5 +115,6 @@
         Deer.Copyright ©2022
       </div>
     </div>
+    <script th:src="@{static/script/book_manager.js}"></script>
   </body>
 </html>
