@@ -11,6 +11,11 @@
     <link rel="stylesheet" th:href="@{static/css/bookManger.css}" />
     <link rel="stylesheet" th:href="@{static/css/register.css}" />
     <link rel="stylesheet" th:href="@{static/css/book_add.css}" />
+      <style>
+          .login_banner .register_form .form-item {
+              margin-top: 16px !important;
+          }
+      </style>
   </head>
   <body>
     <div class="header">
@@ -22,7 +27,7 @@
           <h1>修改图书</h1>
         </div>
         <div class="header-right">
-          <a th:href="@{jumpHtml(jump='book_manager')}" class="order">图书管理</a>
+          <a th:href="@{book(method='book_manager')}" class="order">图书管理</a>
           <a th:href="@{jumpHtml(jump='order_manager')}" class="destory">订单管理</a>
           <a th:href="@{index}" class="gohome">返回商城</a>
         </div>
@@ -30,18 +35,19 @@
     </div>
     <div class="login_banner">
       <div class="register_form">
-        <form th:action="@{book(method='updateBook')}" method="post" enctype="multipart/form-data">
-          <div class="form-item" style="padding-top: 14px;">
-            <div>
-              <label>封面:</label>
-              <input type="file" name="img_path" th:value="${session.ImgPath}" style="line-height: 40px;border: 0px;"/>
-            </div>
-            <span class="errMess"></span>
-          </div>
+        <form th:action="@{book(method='updateBook')}" method="post">
+<!--          <div class="form-item" style="padding-top: 14px;">-->
+<!--            <div>-->
+<!--              <label>封面:</label>-->
+<!--              <input type="file" name="img_path" th:value="${book.imgPath}" style="line-height: 40px;border: 0px;"/>-->
+<!--            </div>-->
+<!--            <span class="errMess"></span>-->
+<!--          </div>-->
+          <input type="hidden" th:value="${book.bookId}" name="id">
           <div class="form-item">
             <div>
               <label>名称:</label>
-              <input type="text" th:value="${session.Name}" name="name"/>
+              <input type="text" th:value="${book.name}" name="name" readonly/>
             </div>
             <span class="errMess" style="visibility: visible;"
               >请输入正确的名称</span
@@ -50,28 +56,28 @@
           <div class="form-item">
             <div>
               <label>价格:</label>
-              <input type="number" th:value="${session.Price}" name="price"/>
+              <input type="number" th:value="${book.price}" name="price"/>
             </div>
             <span class="errMess">请输入正确数字</span>
           </div>
           <div class="form-item">
             <div>
               <label>作者:</label>
-              <input type="text" th:value="${session.Author}" name="author"/>
+              <input type="text" th:value="${book.author}" name="author" readonly/>
             </div>
             <span class="errMess">请输入正确作者</span>
           </div>
           <div class="form-item">
             <div>
               <label>销量:</label>
-              <input type="number" th:value="${session.Sales}" name="sales"/>
+              <input type="number" th:value="${book.sales}" name="sales"/>
             </div>
             <span class="errMess">请输入正确销量</span>
           </div>
           <div class="form-item">
             <div>
               <label>库存:</label>
-              <input type="number" th:value="${session.Stock}" name="stock"/>
+              <input type="number" th:value="${book.stock}" name="stock"/>
             </div>
             <span class="errMess">请输入正确库存</span>
           </div>

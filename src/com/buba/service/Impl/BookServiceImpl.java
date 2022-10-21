@@ -46,7 +46,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int maxPrice() {
+    public Double maxPrice() {
         return bookDao.maxPrice();
     }
 }

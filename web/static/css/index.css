@@ -125,14 +125,14 @@
 .banner-left ul li {
   padding: 0 20px;
 }
-.banner-left ul li a {
+.banner-left ul li .lateral_a1 {
   height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #39987c;
 }
-.banner-left ul li a:hover {
+.banner-left ul li:hover .lateral_a1{
   color: #fff;
 }
 .banner-left ul li:hover {
@@ -477,4 +477,41 @@
   height: 40px;
   background-color: #2a2a2a;
   line-height: 40px;
+}
+
+/* 侧行栏 */
+.lateral_li{
+  position: relative;
+}
+.lateral_li:hover .lateral_div{
+  display: block;
+}
+.lateral_div:hover .lateral_li{
+  color: #fff;
+}
+.lateral_div{
+  display: none;
+  width: 550px;
+  position: absolute;
+  top: 0px;
+  left: 233px;
+  z-index: 999;
+  background: #f0f0f0;
+  padding: 20px;
+}
+.lateral_dl{
+  padding: 10px 10px 10px 10px;
+}
+.lateral_dt{
+  width: 100%;
+  float: left;
+  cursor: pointer;
+}
+.lateral_dd{
+}
+.lateral_a2{
+  float: left;
+  display: block;
+  margin: 10px 10px 10px 0px;
+  color: #39987c;
 }

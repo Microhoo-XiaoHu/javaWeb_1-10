@@ -65,47 +65,19 @@
       <div class="banner w clearfix">
         <div class="banner-left">
           <ul>
-            <li>
-              <a href="">
-                <span>文学 鉴赏</span>
+            <li class="lateral_li" th:each="item : ${session.bookTypeList}">
+              <a href="" class="lateral_a1">
+                <span th:text="${item[0]}">文学 鉴赏</span>
                 <i class="iconfont icon-jiantou"></i
               ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>社科 研究</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>少儿 培训</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>艺术 赏析</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>生活 周边</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>文教 科技</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-            </li>
-            <li>
-              <a href="">
-                <span>热销 畅读</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
+              <div class="lateral_div">
+                  <dl class="lateral_dl" th:each="item2,index: ${item[1]}">
+                    <dt class="lateral_dt" th:text="${item2}" style="font-weight: bolder"></dt>
+                    <a th:href="@{lateral(method='lateral',item3=${item3})}" class="lateral_a2" th:each="item3 : ${item[2][index.index]}">
+                      <dd class="lateral_dd" th:text="${item3}"></dd>
+                    </a>
+                  </dl>
+              </div>
             </li>
           </ul>
         </div>
@@ -171,8 +143,8 @@
                       th:onclick="|page(${item})|"
                   ></li>
                 </ul>
-                <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount}">
-                <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount}">
+                <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount || session.pageCount==0}">
+                <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount || session.pageCount==0}">
                 <span>共<e th:text="${session.pageCount}" class="e">xx</e>页</span>
                 <span th:text="${session.count}+'条记录'">30条记录</span>
                 <span>到第</span>

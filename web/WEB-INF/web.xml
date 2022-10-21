@@ -50,4 +50,14 @@
         <url-pattern>/book</url-pattern>
     </servlet-mapping>
 
+<!--  侧行栏  -->
+    <!--  图书  -->
+    <servlet>
+        <servlet-name>LateralServlet</servlet-name>
+        <servlet-class>com.buba.controller.LateralServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LateralServlet</servlet-name>
+        <url-pattern>/lateral</url-pattern>
+    </servlet-mapping>
 </web-app>

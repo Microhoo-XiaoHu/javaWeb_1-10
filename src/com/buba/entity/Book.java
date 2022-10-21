@@ -17,6 +17,13 @@ public class Book {
     public Book() {
     }
 
+    public Book(Integer bookId, Double price, Integer sales, Integer stock) {
+        this.bookId = bookId;
+        this.price = price;
+        this.sales = sales;
+        this.stock = stock;
+    }
+
     public Book(Integer bookId, String name, Double price, String author, Integer sales, Integer stock, String imgPath) {
         this.bookId = bookId;
         this.name = name;

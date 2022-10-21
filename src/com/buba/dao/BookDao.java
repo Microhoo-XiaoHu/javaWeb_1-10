@@ -21,7 +21,7 @@ public interface BookDao {
     // 查询图书总记录数的方法
     int findBookCount(Integer min,Integer max);
     // 查找图书的最高价
-    int maxPrice();
+    Double maxPrice();
     // 通过图书id查找图书
     Book findBookById(Integer bookId);
 

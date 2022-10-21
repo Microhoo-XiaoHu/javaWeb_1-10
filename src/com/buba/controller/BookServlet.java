@@ -4,6 +4,7 @@ package com.buba.controller;
 import com.buba.entity.Book;
 import com.buba.service.BookService;
 import com.buba.service.Impl.BookServiceImpl;
+import com.mysql.cj.Session;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -46,6 +47,7 @@ public class BookServlet extends ViewBaseServlet {
         }
         // 修改图书界面
         if(req.getParameter("method").equals("editBook")){
+            this.editBook(req,resp);
             processTemplate("/pages/manager/book_edit",req,resp);
         }
         // 修改图书方法
@@ -59,21 +61,54 @@ public class BookServlet extends ViewBaseServlet {
 
     }
 
+    private void editBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        Book book = bookService.findBookById(Integer.parseInt(id));
+        req.setAttribute("book",book);
+
+        // 获取页码,覆盖到session会话域,目的为了修改成功后,跳回当前页面
+        String pageNoStr = req.getParameter("pageNoStr");
+        HttpSession session = req.getSession();
+        session.setAttribute("pageNoStr",pageNoStr);
+
+    }
+
     private void deleteBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         String pageNo = req.getParameter("pageNo");
+        // 删除图书记录
+        bookService.deleteBook(Integer.parseInt(id));
 
-        int i = bookService.deleteBook(Integer.parseInt(id));
-        System.out.println(i);
-
-        resp.sendRedirect("book?method=book_manager&pageNo=" + pageNo);
+        // 获取图书最高价的值
+        Double max = bookService.maxPrice();
+        // 查找图书,获得集合,判断集合是否为空
+        List<Book> books = bookService.limitFindBook(Integer.parseInt(pageNo),0, (int) Math.ceil(max));
+        // 如果为空,那么页码-1
+        if(books.isEmpty()){
+            if(Integer.parseInt(pageNo) == 1){
+                resp.sendRedirect("book?method=book_manager&pageNo=" + pageNo);
+            }else{
+                resp.sendRedirect("book?method=book_manager&pageNo=" + (Integer.parseInt(pageNo)-1));
+            }
+        }else{ // 如果不为空,那么保持在当前页
+            resp.sendRedirect("book?method=book_manager&pageNo=" + pageNo);
+        }
     }
 
     private void updateBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        String price = req.getParameter("price");
+        String sales = req.getParameter("sales");
+        String stock = req.getParameter("stock");
+        Book book = new Book(Integer.parseInt(id),Double.valueOf(price),Integer.parseInt(sales),Integer.parseInt(stock));
+        // 调用修改图书方法
+        bookService.updateBook(book);
+        // 获取修改页面传过来的session会话域的页码值
+        HttpSession session = req.getSession();
+        Object pageNo = session.getAttribute("pageNoStr");
 
-
-
-        processTemplate("/pages/manager/book_manager",req,resp);
+        // 重定向,修改成功后,回到当前修改的图书展示页面
+        resp.sendRedirect("book?method=book_manager&pageNo=" + pageNo);
     }
 
     private void addBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -31,8 +31,8 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public int updateBook(Book book) {
-        String sql = "update from t_book(img_path,name,price,author,sales,stock) set (?,?,?,?,?,?)";
-        int i = jdbcTemplate.update(sql, book.getImgPath(),book.getName(),book.getPrice(),book.getAuthor(),book.getSales(),book.getStock());
+        String sql = "update t_book set price = ?, sales = ?, stock = ? where book_id = ?";
+        int i = jdbcTemplate.update(sql,book.getPrice(),book.getSales(),book.getStock(),book.getBookId());
         return i;
     }
 
@@ -52,13 +52,15 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book findBookById(Integer bookId) {
-        return null;
+        String sql = "select * from t_book where book_id = ?";
+        Book book = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Book.class), bookId);
+        return book;
     }
 
     @Override
-    public int maxPrice() {
+    public Double maxPrice() {
         String sql = "select max(price) from t_book";
-        Integer i = jdbcTemplate.queryForObject(sql, Integer.class);
+        Double i = jdbcTemplate.queryForObject(sql, Double.class);
         return i;
     }
 }

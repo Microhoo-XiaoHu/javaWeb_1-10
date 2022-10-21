@@ -43,7 +43,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="item : ${session.books}">
+            <tr th:if="${#lists.isEmpty(session.books)}">
+              <td colspan="7" style="text-align: center">抱歉,当前没有图书信息了!!!</td>
+            </tr>
+            <tr th:unless="${#lists.isEmpty(session.books)}" th:each="item : ${session.books}">
               <td>
                 <img th:src="${item.imgPath}" alt="" />
               </td>
@@ -53,7 +56,7 @@
               <td th:text="${item.sales}">200</td>
               <td th:text="${item.stock}">400</td>
               <td>
-                <a th:href="@{book(method='editBook',id=${item.bookId})}">修改</a><a th:href="@{book(method='deleteBook',id=${item.bookId},pageNo=${session.pageNo})}" class="del">删除</a>
+                <a th:href="@{book(method='editBook',id=${item.bookId},pageNoStr=${session.pageNo})}">修改</a><a th:href="@{book(method='deleteBook',id=${item.bookId},pageNo=${session.pageNo})}" class="del">删除</a>
               </td>
             </tr>
           </tbody>

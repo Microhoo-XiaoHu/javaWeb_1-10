@@ -20,8 +20,8 @@ public interface BookService {
     List<Book> limitFindBook(Integer pageNo,Integer min,Integer max);
     // 查询图书总记录数的方法
     int findBookCount(Integer min,Integer max);
+    // 查找图书的最高价
+    Double maxPrice();
     // 通过图书id查找图书
     Book findBookById(Integer bookId);
-    // 查找图书的最高价
-    int maxPrice();
 }

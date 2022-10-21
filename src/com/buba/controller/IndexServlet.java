@@ -3,6 +3,7 @@ package com.buba.controller;
 import com.buba.entity.Book;
 import com.buba.service.BookService;
 import com.buba.service.Impl.BookServiceImpl;
+import com.buba.service.Impl.BookTypeServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +20,20 @@ import java.util.List;
  */
 public class IndexServlet extends ViewBaseServlet {
     private BookService bookService = new BookServiceImpl();
+    private BookTypeServiceImpl bookTypeService = new BookTypeServiceImpl();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json;charset=utf-8");
         resp.setCharacterEncoding("UTF-8");
-
+        // 侧行栏数据
+        List bookType = this.findBookType();
+        HttpSession session = req.getSession();
+        session.setAttribute("bookTypeList",bookType);
+        // 图书列表数据
         this.limitFindBook(req,resp);
         super.processTemplate("index",req,resp);
+
     }
 
     public void limitFindBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,7 +41,7 @@ public class IndexServlet extends ViewBaseServlet {
         HttpSession session = req.getSession();
 
         // 查询价格最大值
-        int max = bookService.maxPrice();
+        Double max = bookService.maxPrice();
         // 获取前端input传入的价格最大值.最小值
         String minPrice = req.getParameter("minPrice");
         String maxPrice = req.getParameter("maxPrice");
@@ -44,7 +51,7 @@ public class IndexServlet extends ViewBaseServlet {
             session.setAttribute("maxPrice",maxPrice);
             this.findBook(Integer.parseInt(minPrice),Integer.parseInt(maxPrice),req,resp);
         }else{
-            this.findBook(0,max,req,resp);
+            this.findBook(0, (int) Math.ceil(max),req,resp);
         }
     }
 
@@ -89,6 +96,28 @@ public class IndexServlet extends ViewBaseServlet {
         // 查询全部图书(分页),展示在首页
         List<Book> books = bookService.limitFindBook(pageNo,min,max);
         session.setAttribute("books",books);
+
+
     }
 
+    // 首页侧行栏查询书籍数据
+    public List findBookType(){
+        ArrayList<Object> list1 = new ArrayList<>();
+        List<String> oneLevel = bookTypeService.findOneLevel();
+
+        for (String two : oneLevel) {
+            ArrayList<Object> list2 = new ArrayList<>();
+            List<String> twoLevel = bookTypeService.findTwoLevel(two);
+            list2.add(two);
+            list2.add(twoLevel);
+            ArrayList<Object> list3 = new ArrayList<>();
+            for (String three : twoLevel) {
+                List<String> threeLevel = bookTypeService.findTwoLevel(three);
+                list3.add(threeLevel);
+            }
+            list2.add(list3);
+            list1.add(list2);
+        }
+        return list1;
+    }
 }
