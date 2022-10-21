@@ -24,6 +24,8 @@ console.log(maxPrice)
 btnPrice.onclick = function(){
     if(minPrice.value != false && maxPrice.value != false){
         window.location.href = "index?minPrice="+minPrice.value+"&maxPrice="+maxPrice.value;
+    }else{
+        window.location.href = "index?method=resetPrice";
     }
 }
 

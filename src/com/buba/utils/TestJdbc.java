@@ -1,5 +1,7 @@
 package com.buba.utils;
 
+import com.buba.dao.Impl.BookTypeDaoImpl;
+import com.buba.entity.Book;
 import com.buba.service.Impl.BookTypeServiceImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -25,6 +27,10 @@ public class TestJdbc {
 //            System.out.println(r);
 //            template.update(sql,r,i+352);
 //        }
+
+        BookTypeDaoImpl bookTypeDao = new BookTypeDaoImpl();
+        List<Book> book = bookTypeDao.findBookByType("程序设计");
+        System.out.println(book);
 
     }
 

@@ -1,5 +1,7 @@
 package com.buba.dao;
 
+import com.buba.entity.Book;
+
 import java.util.List;
 
 /**
@@ -17,4 +19,7 @@ public interface BookTypeDao {
 
     // 查询孙子类型
     List<String> findThreeLevel(String ParentName);
+
+    // 通过类型查询对应的图书
+    List<Book> findBookByType(String bookType);
 }

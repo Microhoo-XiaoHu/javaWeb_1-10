@@ -1,6 +1,7 @@
 package com.buba.dao.Impl;
 
 import com.buba.dao.BookTypeDao;
+import com.buba.entity.Book;
 import com.buba.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,6 +37,13 @@ public class BookTypeDaoImpl implements BookTypeDao {
                 "\t(select type_id from t_book_type where parent_id in \n" +
                 "\t\t(select type_id from t_book_type where type_name = ?));";
         List<String> list = jdbcTemplate.queryForList(sql, String.class,ParentName);
+        return list;
+    }
+
+    @Override
+    public List<Book> findBookByType(String bookType) {
+        String sql = "select * from t_book where type_id in (select type_id from t_book_type where type_name = ?)";
+        List<Book> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class),bookType);
         return list;
     }
 }

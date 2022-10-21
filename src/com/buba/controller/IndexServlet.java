@@ -30,6 +30,16 @@ public class IndexServlet extends ViewBaseServlet {
         List bookType = this.findBookType();
         HttpSession session = req.getSession();
         session.setAttribute("bookTypeList",bookType);
+
+        // 重置图书价格筛选查询
+        String method = req.getParameter("method");
+        if(method != null){
+            if(method.equals("resetPrice")){
+                session.setAttribute("maxPrice",null);
+                session.setAttribute("minPrice",null);
+            }
+        }
+
         // 图书列表数据
         this.limitFindBook(req,resp);
         super.processTemplate("index",req,resp);

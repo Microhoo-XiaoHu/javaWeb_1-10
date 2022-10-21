@@ -12,17 +12,11 @@
             <div class="list-header">
                 <div class="title" th:text="${session.item3}" style="font-weight: bolder">图书列表</div>
                 <div class="price-search">
-<!--                    <span>价格:</span>-->
-<!--                    <input type="text" name="minPrice" th:value="${session.minPrice}">-->
-<!--                    <span>-元</span>-->
-<!--                    <input type="text" name="maxPrice" th:value="${session.maxPrice}">-->
-<!--                    <span>元</span>-->
-<!--                    <button id="btn_price">查询</button>-->
                 </div>
             </div>
             <div class="list-content">
                 <!--       数据库中图书信息       -->
-                <div th:each="item : ${session.books}" class="list-item">
+                <div th:each="item : ${session.bookTypeList}" class="list-item">
                     <img th:src="${item.imgPath}" alt="">
                     <p style="margin: 0 0 0 0;" th:text="${item.name}">书名:活着</p>
                     <p style="margin: 0 0 0 0;" th:text="${item.author}">作者:余华</p>
@@ -31,27 +25,6 @@
                     <p style="margin: 0 0 0 0;" th:text="${item.stock}">库存:1000</p>
                     <button>加入购物车</button>
                 </div>
-            </div>
-            <div class="list-footer">
-                <input type="button" value="首页" th:onclick="page(1)" th:disabled="${session.pageNo==1}">
-                <input type="button" value="上一页" th:onclick="|page(${session.pageNo - 1})|" th:disabled="${session.pageNo==1}">
-                <ul id="pageUl">
-                    <li style="display: none"
-                        th:each="item : ${session.listPage}"
-                        th:text="${item}"
-                        th:class="${item == session.pageNo ? 'active' : ''}"
-                        th:onclick="|page(${item})|"
-                    ></li>
-                </ul>
-                <input type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount || session.pageCount==0}">
-                <input type="button" value="末页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount || session.pageCount==0}">
-                <span>共<e th:text="${session.pageCount}" class="e">xx</e>页</span>
-                <span th:text="${session.count}+'条记录'">30条记录</span>
-                <span>到第</span>
-                <input id="toPage" type="text">
-                <span>页</span>
-                <input id="pageCount" type="hidden" th:value="${session.pageCount}">
-                <button id="toPageBtn" disabled="true">确定</button>
             </div>
         </div>
     </div>

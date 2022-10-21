@@ -2,6 +2,7 @@ package com.buba.service.Impl;
 
 import com.buba.dao.BookTypeDao;
 import com.buba.dao.Impl.BookTypeDaoImpl;
+import com.buba.entity.Book;
 import com.buba.service.BookTypeService;
 
 import java.util.List;
@@ -27,5 +28,10 @@ public class BookTypeServiceImpl implements BookTypeService {
     @Override
     public List<String> findThreeLevel(String ParentName) {
         return bookTypeDao.findThreeLevel(ParentName);
+    }
+
+    @Override
+    public List<Book> findBookByType(String bookType) {
+        return bookTypeDao.findBookByType(bookType);
     }
 }
