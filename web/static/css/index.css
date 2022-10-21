@@ -491,9 +491,9 @@
 }
 .lateral_div{
   display: none;
-  width: 550px;
+  width: 675px;
   position: absolute;
-  top: 0px;
+  top: -20px;
   left: 233px;
   z-index: 999;
   background: #f0f0f0;

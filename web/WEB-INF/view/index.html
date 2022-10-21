@@ -65,16 +65,20 @@
       <div class="banner w clearfix">
         <div class="banner-left">
           <ul>
+            <!--      先循环集合      -->
             <li class="lateral_li" th:each="item : ${session.bookTypeList}">
               <a href="" class="lateral_a1">
+                <!-- 一级内容 -->
                 <span th:text="${item[0]}">文学 鉴赏</span>
-                <i class="iconfont icon-jiantou"></i
-              ></a>
-              <div class="lateral_div">
-                  <dl class="lateral_dl" th:each="item2,index: ${item[1]}">
+                <i class="iconfont icon-jiantou"></i></a>
+              <div class="lateral_div" style="background: #39987c;">
+                  <!-- 循环二级集合 -->
+                  <dl class="lateral_dl" th:each="item2,item2Stat: ${item[1]}">
+                    <!-- 循环的二级集合 内容 -->
                     <dt class="lateral_dt" th:text="${item2}" style="font-weight: bolder"></dt>
-                    <a th:href="@{lateral(method='lateral',item3=${item3})}" class="lateral_a2" th:each="item3 : ${item[2][index.index]}">
-                      <dd class="lateral_dd" th:text="${item3}"></dd>
+                    <!-- 循环三级集合的内容 -->
+                    <a th:href="@{lateral(method='lateral',item3=${item3})}" class="lateral_a2" th:each="item3 : ${item[2][item2Stat.index]}">
+                      <dd class="lateral_dd" th:text="${item3}" style="color: #fff;"></dd>
                     </a>
                   </dl>
               </div>

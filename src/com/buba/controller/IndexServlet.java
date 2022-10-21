@@ -28,6 +28,7 @@ public class IndexServlet extends ViewBaseServlet {
         resp.setCharacterEncoding("UTF-8");
         // 侧行栏数据
         List bookType = this.findBookType();
+        System.out.println(bookType);
         HttpSession session = req.getSession();
         session.setAttribute("bookTypeList",bookType);
 
@@ -112,22 +113,52 @@ public class IndexServlet extends ViewBaseServlet {
 
     // 首页侧行栏查询书籍数据
     public List findBookType(){
+        // 创建一级集合
         ArrayList<Object> list1 = new ArrayList<>();
+        // 先调用方法查询所有一级类型
         List<String> oneLevel = bookTypeService.findOneLevel();
-
-        for (String two : oneLevel) {
+        // 循环一级,查询二级
+        for (String one : oneLevel) {
+            // 创建一个二级集合
             ArrayList<Object> list2 = new ArrayList<>();
-            List<String> twoLevel = bookTypeService.findTwoLevel(two);
-            list2.add(two);
-            list2.add(twoLevel);
-            ArrayList<Object> list3 = new ArrayList<>();
-            for (String three : twoLevel) {
-                List<String> threeLevel = bookTypeService.findTwoLevel(three);
+            // 使用一级的内容,调用二级方法,去查找所有的二级
+            List<String> twoLevel = bookTypeService.findTwoLevel(one);
+            list2.add(one);  // 一级内容
+            list2.add(twoLevel); // 一级对应的所有二级内容
+            ArrayList<Object> list3 = new ArrayList<>(); // 再建新的三级集合
+            for (String three : twoLevel) { // 循环二级内容
+                List<String> threeLevel = bookTypeService.findTwoLevel(three); // 通过二级里边的内容,查找三级内容
                 list3.add(threeLevel);
             }
             list2.add(list3);
             list1.add(list2);
         }
         return list1;
+
+
+        /*
+        * var arr = [
+        *       [
+        *           一级内容,
+        *           [一级对应的二级内容],
+        *           [
+        *               [二级对应的三级内容],
+        *               [二级对应的三级内容],
+        *               [二级对应的三级内容]
+        *           ]
+        *       ],
+        *       [
+         *           一级内容,
+         *           [一级对应的二级内容],
+         *           [
+         *               [二级对应的三级内容],
+         *               [二级对应的三级内容],
+         *               [二级对应的三级内容]
+         *           ]
+         *       ],
+         *       ........
+        *     ]
+        *
+        * */
     }
 }

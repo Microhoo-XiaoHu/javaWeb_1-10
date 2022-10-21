@@ -4,7 +4,6 @@ package com.buba.controller;
 import com.buba.entity.Book;
 import com.buba.service.BookService;
 import com.buba.service.Impl.BookServiceImpl;
-import com.mysql.cj.Session;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -66,7 +65,7 @@ public class BookServlet extends ViewBaseServlet {
         Book book = bookService.findBookById(Integer.parseInt(id));
         req.setAttribute("book",book);
 
-        // 获取页码,覆盖到session会话域,目的为了修改成功后,跳回当前页面
+        // 获取页码,将其提升为session会话域,以便修改后提交时使用
         String pageNoStr = req.getParameter("pageNoStr");
         HttpSession session = req.getSession();
         session.setAttribute("pageNoStr",pageNoStr);
@@ -103,7 +102,7 @@ public class BookServlet extends ViewBaseServlet {
         Book book = new Book(Integer.parseInt(id),Double.valueOf(price),Integer.parseInt(sales),Integer.parseInt(stock));
         // 调用修改图书方法
         bookService.updateBook(book);
-        // 获取修改页面传过来的session会话域的页码值
+        // 获取修改页面传过来的,被提升为session会话域的页码值
         HttpSession session = req.getSession();
         Object pageNo = session.getAttribute("pageNoStr");
 
