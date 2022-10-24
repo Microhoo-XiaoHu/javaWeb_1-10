@@ -1,6 +1,9 @@
 package com.buba.controller;
 
+import com.buba.entity.Cart;
 import com.buba.entity.User;
+import com.buba.service.CartItemService;
+import com.buba.service.Impl.CartItemServiceImpl;
 import com.buba.service.Impl.UserServiceImpl;
 import com.buba.service.UserService;
 import com.buba.utils.MD5Util;
@@ -18,6 +21,7 @@ import java.io.IOException;
  */
 public class UserServlet extends ViewBaseServlet {
     private UserService userService = new UserServiceImpl();
+    private CartItemService cartItemService = new CartItemServiceImpl();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -63,6 +67,9 @@ public class UserServlet extends ViewBaseServlet {
         HttpSession session = req.getSession();
         if(i == 1){ // 登陆成功
             session.setAttribute("username",username);
+            Cart cart = new Cart();
+            cart.setCartItems(cartItemService.findCartItem(username));
+            session.setAttribute("cart",cart);
             super.processTemplate("index",req,resp);
         }else{
             resp.getWriter().write("" + i);

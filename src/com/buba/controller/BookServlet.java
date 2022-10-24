@@ -34,7 +34,7 @@ public class BookServlet extends ViewBaseServlet {
         // 添加图书
         if(req.getParameter("method").equals("addBook")){
             this.addBook(req,resp);
-            processTemplate("/pages/manager/book_add",req,resp);
+            processTemplate("/pages/manager/book_manager",req,resp);
         }
         // 跳转到图书管理页面
         if(req.getParameter("method").equals("book_manager")){

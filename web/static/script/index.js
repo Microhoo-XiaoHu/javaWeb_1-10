@@ -76,3 +76,8 @@ if(active.innerText == "1"){
     active.nextElementSibling.style = "block";
     active.nextElementSibling.nextElementSibling.style = "block";
 }
+
+// 点击加入购物车事件
+function addCart(bookId){
+    window.location.href = "cart?method=addCart&bookId=" + bookId;
+}

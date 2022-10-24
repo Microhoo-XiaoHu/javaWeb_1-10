@@ -1,10 +1,15 @@
 package com.buba.utils;
 
 import com.buba.dao.Impl.BookTypeDaoImpl;
+import com.buba.dao.Impl.CartItemDaoImpl;
+import com.buba.dao.Impl.UserDaoImpl;
 import com.buba.entity.Book;
+import com.buba.entity.CartItem;
+import com.buba.entity.User;
 import com.buba.service.Impl.BookTypeServiceImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,10 +33,18 @@ public class TestJdbc {
 //            template.update(sql,r,i+352);
 //        }
 
-        BookTypeDaoImpl bookTypeDao = new BookTypeDaoImpl();
-        List<Book> book = bookTypeDao.findBookByType("程序设计");
-        System.out.println(book);
+//        BookTypeDaoImpl bookTypeDao = new BookTypeDaoImpl();
+//        List<Book> book = bookTypeDao.findBookByType("程序设计");
+//        System.out.println(book);
 
+//        CartItemDaoImpl cartItemDao = new CartItemDaoImpl();
+//        List<CartItem> list = cartItemDao.findCartItem("xiaohu0214");
+//        System.out.println(list);
+        BigDecimal bigDecimal = BigDecimal.valueOf(0.2);
+        for (int i = 0; i < 20; i++) {
+            bigDecimal = bigDecimal.add(BigDecimal.valueOf(i+0.1));
+        }
+        System.out.println(bigDecimal);
     }
 
 }

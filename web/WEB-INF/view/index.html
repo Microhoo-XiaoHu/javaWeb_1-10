@@ -25,7 +25,7 @@
             <a th:href="@{jumpHtml(jump='regist')}" class="register">注册</a>
             <a th:href="@{jumpHtml(jump='cart')}" class="cart iconfont icon-gouwuche">
               购物车
-              <div class="cart-num">3</div>
+<!--              <div class="cart-num"></div>-->
             </a>
             <a th:href="@{book(method='book_manager')}" class="admin">后台管理</a>
           </div>
@@ -38,7 +38,7 @@
                     class="cart iconfont icon-gouwuche
 			">
               购物车
-              <div class="cart-num">3</div>
+              <div class="cart-num" th:text="${session.cart.getTotalCount()}"></div>
             </a>
             <a th:href="@{book(method='book_manager')}" class="admin">后台管理</a>
           </div>
@@ -133,7 +133,7 @@
                 <p th:text="${item.price}">价格:￥66.6</p>
                 <p th:text="${item.sales}">销量:230</p>
                 <p th:text="${item.stock}">库存:1000</p>
-                <button>加入购物车</button>
+                <button th:onclick="|addCart(${item.bookId})|">加入购物车</button>
               </div>
             </div>
             <div class="list-footer">

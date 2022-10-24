@@ -16,4 +16,7 @@ public interface UserService {
 
     // 通过用户名查询数据库是否存在
     int findUserByName(String userName);
+
+    // 通过用户名查询用户id
+    User findUserByUsername(String username);
 }

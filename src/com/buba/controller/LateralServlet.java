@@ -17,6 +17,10 @@ import java.util.List;
  * Date:2022-10-20
  * Time:20:58
  */
+
+/**
+ * 首页侧行栏数据渲染
+ */
 public class LateralServlet extends ViewBaseServlet {
     private BookTypeService bookTypeService = new BookTypeServiceImpl();
     @Override

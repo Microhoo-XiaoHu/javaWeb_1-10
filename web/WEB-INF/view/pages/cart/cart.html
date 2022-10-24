@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{static/css/minireset.css}" />
     <link rel="stylesheet" th:href="@{static/css/common.css}" />
     <link rel="stylesheet" th:href="@{static/css/cart.css}" />
+    <script th:src="@{static/script/cart.js}"></script>
   </head>
   <body>
     <div class="header">
@@ -18,9 +19,9 @@
           <h1>我的购物车</h1>
         </div>
         <div class="header-right">
-          <h3>欢迎<span>会员</span>光临Deer书城</h3>
+          <h3>欢迎<span th:text="${session.username}">会员</span>光临Deer书城</h3>
           <div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>
-          <div class="destory"><a th:href="@{index}">注销</a></div>
+          <div class="destory"><a href="/UserServlet?user=logout">注销</a></div>
           <div class="gohome">
             <a th:href="@{index}">返回</a>
           </div>
@@ -42,94 +43,30 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr th:each="item : ${session.cart.getCartItems()}">
               <td>
-                <img th:src="@{static/uploads/huozhe.jpg}" alt="" />
+                <img th:src="${item.getImgPath()}" alt="" />
               </td>
-              <td>活着</td>
+              <td th:text="${item.getName()}">活着</td>
               <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
+                <button class="count" th:disabled="${item.getBuyCount() == 1}" th:onclick="'updateBuyCount('+${item.getId()}+','+${item.getBuyCount()-1}+')'">-</button>
+                <input class="count-num" type="text" th:value="${item.getBuyCount()}" />
+                <button class="count" th:onclick="'updateBuyCount('+${item.getId()}+','+${item.getBuyCount()+1}+')'">+</button>
               </td>
-              <td>36.8</td>
-              <td>36.8</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img th:src="@{static/uploads/kanjian.jpg}" alt="" />
-              </td>
-              <td>看见</td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img th:src="@{static/uploads/kanjian.jpg}" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img th:src="@{static/uploads/kanjian.jpg}" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <!-- <div> -->
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="100" />
-                <span class="count">+</span>
-                <!-- </div> -->
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/kanjian.jpg" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="99" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
+              <td th:text="${item.getPrice()}">36.8</td>
+              <td th:text="${item.getMoney()}">36.8</td>
+              <td><a th:href="@{cart(method='deleteCartItem',id=${item.getId()})}">删除</a></td>
             </tr>
           </tbody>
         </table>
         <div class="footer">
           <div class="footer-left">
-            <a href="#" class="clear-cart">清空购物车</a>
-            <a href="#">继续购物</a>
+            <a th:href="@{cart(method='clear')}" class="clear-cart">清空购物车</a>
+            <a th:href="@{index}">继续购物</a>
           </div>
           <div class="footer-right">
-            <div>共<span>3</span>件商品</div>
-            <div class="total-price">总金额<span>99.9</span>元</div>
+            <div>共<span th:text="${session.cart.getTotalCount()}">3</span>件商品</div>
+            <div class="total-price">总金额<span th:text="${session.cart.getTotalMoney()}">99.9</span>元</div>
             <a class="pay" href="checkout.html">去结账</a>
           </div>
         </div>
