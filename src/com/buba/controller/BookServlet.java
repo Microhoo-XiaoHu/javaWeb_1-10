@@ -129,7 +129,6 @@ public class BookServlet extends ViewBaseServlet {
                 String imgtype = fileItem.getName().substring(fileItem.getName().lastIndexOf("."));
                 // 给文件重新命名防止重复
                 String imgName = UUID.randomUUID() + imgtype;
-                System.out.println();
                 String path="D:\\develop\\workspace\\javaWeb_1-10\\web\\static\\uploads\\";
                 // 将上传的文件保存到服务器
                 fileItem.write(new File(path, imgName));
@@ -144,7 +143,6 @@ public class BookServlet extends ViewBaseServlet {
                 book.setAuthor(items.get(3).getString("UTF-8"));
                 book.setSales(Integer.valueOf(items.get(4).getString("UTF-8")));
                 book.setStock(Integer.valueOf(items.get(5).getString("UTF-8")));
-                System.out.println(book.toString());
                 bookService.addBook(book);
 
                 // 将参数覆盖到会话域,以便修改界面使用

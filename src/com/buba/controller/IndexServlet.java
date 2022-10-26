@@ -28,7 +28,6 @@ public class IndexServlet extends ViewBaseServlet {
         resp.setCharacterEncoding("UTF-8");
         // 侧行栏数据
         List bookType = this.findBookType();
-//        System.out.println(bookType);
         HttpSession session = req.getSession();
         session.setAttribute("bookTypeList",bookType);
 

@@ -75,7 +75,6 @@ public class LoginFilter implements Filter {
         // 需要登录之后才能访问的资源,如果没登录,重定向到login上,提示用户进行登录
         HttpSession session = req.getSession();
         Object user = session.getAttribute("username");
-        System.out.println(user);
         if(null != user){// 如果登录过 放行
             filterChain.doFilter(req,resp);
         }else{// 没有登录过,跳转至登录页

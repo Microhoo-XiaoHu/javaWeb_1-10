@@ -63,7 +63,6 @@ public class UserServlet extends ViewBaseServlet {
         // 加密
         String encryptPassword = MD5Util.encrypt(password);
         int i = userService.findUserByNameAndPassword(username, encryptPassword);
-        System.out.println(i);
         HttpSession session = req.getSession();
         if(i == 1){ // 登陆成功
             // 将用户名覆盖到session会话域

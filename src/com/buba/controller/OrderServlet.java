@@ -129,8 +129,6 @@ public class OrderServlet extends ViewBaseServlet {
         order.setOrderStatus(0); // 状态
         order.setUserId(user.getUserId()); // 用户id
 
-        System.out.println(order);
-
         // 生成订单
         orderService.addOrder(order);
         // 生成订单详情
@@ -169,7 +167,6 @@ public class OrderServlet extends ViewBaseServlet {
         }
         // 5.算法处理: 0-代表前面补充0; 10-代表长度为10; d-代表参数为正数型
         String value = machineId + dayTime + String.format("%010d", hashCode);
-        System.out.println(value);
         return value;
     }
 }

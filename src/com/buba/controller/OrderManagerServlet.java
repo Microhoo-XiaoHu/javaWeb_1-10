@@ -1,6 +1,5 @@
 package com.buba.controller;
 
-import com.buba.entity.Book;
 import com.buba.entity.Order;
 import com.buba.entity.User;
 import com.buba.service.Impl.OrderManagerServiceImpl;
