@@ -14,15 +14,15 @@
     <div class="header">
       <div class="w">
         <div class="header-left">
-          <a href="../../index.html">
+          <a th:href="@{index}">
             <img th:src="@{static/img/logo.gif}" alt=""
           /></a>
           <h1>我的订单</h1>
         </div>
         <div class="header-right">
-          <h3>欢迎<span>会员</span>光临Deer书城</h3>
-          <div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>
-          <div class="destory"><a th:href="@{index}">注销</a></div>
+          <h3>欢迎<span th:text="${session.username}">会员</span>光临Deer书城</h3>
+          <div class="order"><a th:href="@{order(method='myOrder')}">我的订单</a></div>
+          <div class="destory"><a th:href="@{UserServlet(user='logout')}">注销</a></div>
           <div class="gohome">
             <a th:href="@{index}">返回</a>
           </div>
@@ -43,57 +43,41 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>12354456895</td>
-              <td>
+            <tr th:each="item : ${session.myOrderList}">
+              <td th:text="${item.getOrderId()}">12354456895</td>
+              <td th:text="${item.getCreateTime()}">
                 2015.04.23
               </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">等待发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
-            <tr>
-              <td>12354456895</td>
+              <td th:text="${item.getOrderAmount()}">90.00</td>
+              <td th:text="${item.getOrderCount()}">88</td>
               <td>
-                2015.04.23
+                <a href="" class="send" th:if="${item.getOrderStatus() == 0}">未发货</a>
+                <a href="" class="send" th:if="${item.getOrderStatus() == 1}">正在配货</a>
+                <a href="" class="send" th:if="${item.getOrderStatus() == 2}">已发货</a>
               </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">未发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
-            <tr>
-              <td>12354456895</td>
-              <td>
-                2015.04.23
-              </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">已发货</a></td>
-              <td><a href="">查看详情</a></td>
+              <td><a th:href="@{order(method='seeOrderDetail',id=${item.getOrderId()})}">查看详情</a></td>
             </tr>
           </tbody>
         </table>
-        <div class="footer">
-          <div class="footer-right">
-            <div>首页</div>
-            <div>上一页</div>
-            <ul>
-              <li class="active">1</li>
-              <li>2</li>
-              <li>3</li>
-            </ul>
-            <div>下一页</div>
-            <div>末页</div>
-            <span>共10页</span>
-            <span>30条记录</span>
-            <span>到第</span>
-            <input type="text" />
-            <span>页</span>
-            <button>确定</button>
-          </div>
-        </div>
+<!--        <div class="footer">-->
+<!--          <div class="footer-right">-->
+<!--            <div>首页</div>-->
+<!--            <div>上一页</div>-->
+<!--            <ul>-->
+<!--              <li class="active">1</li>-->
+<!--              <li>2</li>-->
+<!--              <li>3</li>-->
+<!--            </ul>-->
+<!--            <div>下一页</div>-->
+<!--            <div>末页</div>-->
+<!--            <span>共10页</span>-->
+<!--            <span>30条记录</span>-->
+<!--            <span>到第</span>-->
+<!--            <input type="text" />-->
+<!--            <span>页</span>-->
+<!--            <button>确定</button>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </div>
     <div class="bottom">
@@ -129,4 +113,5 @@
       </div>
     </div>
   </body>
+  <script th:src="@{/static/script/order.js}"></script>
 </html>

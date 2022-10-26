@@ -1,7 +1,6 @@
 package com.buba.dao;
 
 import com.buba.entity.CartItem;
-import com.buba.entity.User;
 
 import java.util.List;
 

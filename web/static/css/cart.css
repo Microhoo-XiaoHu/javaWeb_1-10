@@ -103,6 +103,20 @@
   text-align: center;
   cursor: pointer;
 }
+
+/*** 消除input元素 type="number" 时默认的 加减按钮*/
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*** 消除input元素 type="number" 时默认的 加减按钮---moz版*/
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+
 .list .w table tbody tr td:nth-child(3) .count-num {
   margin: 0 10px;
   display: inline-block;

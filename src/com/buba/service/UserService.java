@@ -19,4 +19,7 @@ public interface UserService {
 
     // 通过用户名查询用户id
     User findUserByUsername(String username);
+
+    // 通过用户id查询用户
+    User findUserById(Integer id);
 }

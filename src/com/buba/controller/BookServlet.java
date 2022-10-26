@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -99,7 +100,7 @@ public class BookServlet extends ViewBaseServlet {
         String price = req.getParameter("price");
         String sales = req.getParameter("sales");
         String stock = req.getParameter("stock");
-        Book book = new Book(Integer.parseInt(id),Double.valueOf(price),Integer.parseInt(sales),Integer.parseInt(stock));
+        Book book = new Book(Integer.parseInt(id), new BigDecimal(price),Integer.parseInt(sales),Integer.parseInt(stock));
         // 调用修改图书方法
         bookService.updateBook(book);
         // 获取修改页面传过来的,被提升为session会话域的页码值
@@ -139,7 +140,7 @@ public class BookServlet extends ViewBaseServlet {
                 sqlPath = "static/uploads/" + imgName;
                 book.setImgPath(sqlPath);
                 book.setName(items.get(1).getString("UTF-8"));
-                book.setPrice(Double.valueOf(items.get(2).getString("UTF-8")));
+                book.setPrice(new BigDecimal(items.get(2).getString("UTF-8")));
                 book.setAuthor(items.get(3).getString("UTF-8"));
                 book.setSales(Integer.valueOf(items.get(4).getString("UTF-8")));
                 book.setStock(Integer.valueOf(items.get(5).getString("UTF-8")));

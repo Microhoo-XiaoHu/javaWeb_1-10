@@ -34,13 +34,13 @@
 		<div class="header">
 			<div class="w">
 				<div class="header-left">
-					<a href="../../index.html">
+					<a href="/index">
 						<img th:src="@{static/img/logo.gif}" alt=""/></a>
 					<span>我的购物车</span>
 				</div>
 				<div class="header-right">
-					<h3>欢迎<span>会员</span>光临Deer书城</h3>
-					<div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>
+					<h3>欢迎<span th:text="${session.username}">会员</span>光临Deer书城</h3>
+					<div class="order"><a th:href="@{order(method='myOrder')}">我的订单</a></div>
 					<div class="destory"><a th:href="@{index}">注销</a></div>
 					<div class="gohome">
 						<a th:href="@{index}">返回</a>
@@ -50,7 +50,7 @@
 		</div>
 	
 	<div id="main">
-		<h1>你的订单已结算，订单号为:<span class="oid">546845626455846</span></h1>
+		<h1>你的订单已结算，订单号为:<span class="oid" th:text="${orderId}">546845626455846</span></h1>
 	</div>
 
 	<div id="bottom">

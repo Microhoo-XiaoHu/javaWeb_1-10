@@ -6,6 +6,8 @@ package com.buba.entity;
  * Time:20:40
  */
 
+import java.math.BigDecimal;
+
 /**
  * 购物车商品项
  */
@@ -16,8 +18,8 @@ public class CartItem {
     private String imgPath;//图书图片
     private String name;//图书名称
     private Integer buyCount;//数量
-    private Double price;//单价
-    private Double money;//总金额
+    private BigDecimal price;//单价
+    private BigDecimal money;//总金额
 
     public CartItem() {
     }
@@ -27,7 +29,7 @@ public class CartItem {
         this.buyCount = buyCount;
     }
 
-    public CartItem(Integer id, Integer bookId, Integer userId, String imgPath, String name, Integer buyCount, Double price, Double money) {
+    public CartItem(Integer id, Integer bookId, Integer userId, String imgPath, String name, Integer buyCount, BigDecimal price, BigDecimal money) {
         this.id = id;
         this.bookId = bookId;
         this.userId = userId;
@@ -86,19 +88,19 @@ public class CartItem {
         this.buyCount = buyCount;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Double getMoney() {
+    public BigDecimal getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(BigDecimal money) {
         this.money = money;
     }
 

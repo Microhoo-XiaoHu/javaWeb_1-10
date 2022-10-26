@@ -5,14 +5,16 @@ import com.buba.dao.Impl.CartItemDaoImpl;
 import com.buba.dao.Impl.UserDaoImpl;
 import com.buba.entity.Book;
 import com.buba.entity.CartItem;
+import com.buba.entity.Order;
 import com.buba.entity.User;
 import com.buba.service.Impl.BookTypeServiceImpl;
+import com.buba.service.Impl.OrderManagerServiceImpl;
+import com.buba.service.OrderManagerService;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class TestJdbc {
@@ -40,11 +42,32 @@ public class TestJdbc {
 //        CartItemDaoImpl cartItemDao = new CartItemDaoImpl();
 //        List<CartItem> list = cartItemDao.findCartItem("xiaohu0214");
 //        System.out.println(list);
-        BigDecimal bigDecimal = BigDecimal.valueOf(0.2);
-        for (int i = 0; i < 20; i++) {
-            bigDecimal = bigDecimal.add(BigDecimal.valueOf(i+0.1));
-        }
-        System.out.println(bigDecimal);
+
+//        BigDecimal bigDecimal = BigDecimal.valueOf(0.2);
+//        for (int i = 0; i < 20; i++) {
+//            bigDecimal = bigDecimal.add(BigDecimal.valueOf(i+0.1));
+//        }
+//        System.out.println(bigDecimal);
+
+        // 生成随机订单编号
+        // 1.开头两位，标识业务代码或机器代码（可变参数）
+//        String machineId = "11";
+//        // 2.中间四位整数，标识日期
+//        SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+//        String dayTime = sdf.format(new Date());
+//        // 3.生成uuid的hashCode值
+//        int hashCode = UUID.randomUUID().toString().hashCode();
+//        // 4.可能为负数
+//        if(hashCode < 0){
+//            hashCode = -hashCode;
+//        }
+//        // 5.算法处理: 0-代表前面补充0; 10-代表长度为10; d-代表参数为正数型
+//        String value = machineId + dayTime + String.format("%010d", hashCode);
+//        System.out.println(value);
+
+        OrderManagerService orderManagerService = new OrderManagerServiceImpl();
+        List<Order> allOrder = orderManagerService.findAllOrder(1);
+        System.out.println(allOrder.size());
     }
 
 }

@@ -66,10 +66,15 @@ public class UserServlet extends ViewBaseServlet {
         System.out.println(i);
         HttpSession session = req.getSession();
         if(i == 1){ // 登陆成功
+            // 将用户名覆盖到session会话域
             session.setAttribute("username",username);
+            // 创建购物车对象
             Cart cart = new Cart();
+            // 通过用户名查找购物车项,将其赋值给购物车
             cart.setCartItems(cartItemService.findCartItem(username));
+            // 将购物车覆盖到session会话域
             session.setAttribute("cart",cart);
+            // 再跳转到首页
             super.processTemplate("index",req,resp);
         }else{
             resp.getWriter().write("" + i);

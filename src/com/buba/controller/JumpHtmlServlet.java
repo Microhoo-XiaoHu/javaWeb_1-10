@@ -42,20 +42,11 @@ public class JumpHtmlServlet extends ViewBaseServlet {
             processTemplate("/pages/cart/cart",req,resp);
         }
 
-        // 跳转到图书订单管理页面
-        if(req.getParameter("jump").equals("order_manager")){
-            processTemplate("/pages/manager/order_manager",req,resp);
-        }
-
         // 跳转到添加图书页面
         if(req.getParameter("jump").equals("book_add")){
             processTemplate("/pages/manager/book_add",req,resp);
         }
 
-        // 跳转到我的订单页面
-        if(req.getParameter("jump").equals("order")){
-            processTemplate("/pages/order/order",req,resp);
-        }
     }
 
 }
